@@ -6,7 +6,7 @@ docker pull image honeygain/honeygain
 ```
 
 ## Running Honeygain
-```bash
+
 # Get the current copy of ToU:
 docker run honeygain/honeygain -tou-get
 
@@ -18,4 +18,4 @@ docker logs -f honeygain
 
 # Auto-start on Boot (Optional)
 docker update --restart unless-stopped honeygain
-```
+
