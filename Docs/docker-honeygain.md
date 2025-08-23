@@ -7,15 +7,15 @@ docker pull image honeygain/honeygain
 
 ## Running Honeygain
 ```bash
-## Get the current copy of ToU:
+# Get the current copy of ToU:
 docker run honeygain/honeygain -tou-get
 
-## Start Honeygain container by running:
+# Start Honeygain container by running:
 docker run honeygain/honeygain -tou-accept -email "ACCOUNT_EMAIL" -pass "ACCOUNT_PASSWORD" -device "DEVICE_NAME"
 
-## Checking Logs
+# Checking Logs
 docker logs -f honeygain
 
-## Auto-start on Boot (Optional)
+# Auto-start on Boot (Optional)
 docker update --restart unless-stopped honeygain
 ```
