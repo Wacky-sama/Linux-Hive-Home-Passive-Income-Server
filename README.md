@@ -12,3 +12,19 @@ This title and introduction were **AI-assisted and slightly modified** by the au
 
 ---
 
+## Server Specs
+- **OS**: Debian 13
+- **CPU**:
+- **RAM**: GB  
+- **Storage**: 1TB HDD 
+
+---
+
+## Quick Start
+Check out the step-by-step guide:
+-> [Running Honeygain with Docker](docs/docker-honeygain.md)
+
+---
+
+## Motto
+-> Efficiency, tech skills, and passive income-**all in one box**.
