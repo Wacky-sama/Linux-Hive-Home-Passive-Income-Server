@@ -19,3 +19,4 @@ docker logs -f honeygain
 # Auto-start on Boot (Optional)
 docker update --restart unless-stopped honeygain
 ```
+## Remember: replace ACCOUNT_EMAIL, ACCOUNT_PASSWORD, and DEVICE_NAME with your own details.
