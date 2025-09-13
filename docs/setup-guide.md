@@ -1,5 +1,28 @@
 # Server Setup Guide
 
+## Table of Contents
+1. [Installer Menu](#1-installer-menu)  
+2. [Select Language](#2-select-language)  
+3. [Select Location](#3-select-location)  
+4. [Configure Keyboard](#4-configure-keyboard)  
+5. [Set Hostname](#5-set-hostname)  
+6. [Set Domain Name](#6-set-domain-name)  
+7. [Root Password](#7-root-password)  
+8. [Full Name](#8-full-name)  
+9. [Username](#9-username)  
+10. [User Password](#10-user-password)  
+11. [Partition Disks](#11-partition-disks)  
+12. [Partition Layout](#12-partition-layout)  
+13. [Confirm Partitions](#13-confirm-partitions)  
+14. [Mirror Country](#14-mirror-country)  
+15. [Archive Mirror](#15-archive-mirror)  
+16. [HTTP Proxy](#16-http-proxy)  
+17. [Survey](#17-survey)  
+18. [Software Selection](#18-software-selection)  
+19. [Installation Complete](#19-installation-complete)  
+
+---
+
 ## Installation Steps
 
 ### 1. Installer Menu
@@ -36,7 +59,7 @@
 
 ### 9. Username
 ![Username](./images/Username.png)  
-*Pick your login username (ex: `wacky`).*
+*Pick your login username (ex: `han`).*
 
 ### 10. User Password
 ![Password](./images/Password.png)  
@@ -44,7 +67,7 @@
 
 ### 11. Partition Disks
 ![Partition Disks](./images/Partition_Disks.png)  
-*Select the method for partitioning. Use "Manual" for full control.*
+*Select the method for partitioning. I used "Manual" for full control.*
 
 ### 12. Partition Layout
 ![Partition Layout](./images/Partition_Layout.png)  
@@ -72,8 +95,17 @@
 
 ### 18. Software Selection
 ![Software Selection](./images/Software_Selection.png)  
-*Choose which software to install. For servers, select SSH + standard utilities.*
+*Choose which software to install. For servers, select SSH + standard utilities. If you also want to host a Web, choose Web Server*
 
 ### 19. Installation Complete
 ![Installation Complete](./images/Installation_Complete.png)  
-*Remove installation media, reboot, and enjoy your fresh Debian server! 🎉*
+*Remove installation media, reboot, and enjoy your fresh Debian server!*
+
+## Adding user to sudoers
+*Must be root first*
+```bash
+su
+```
+```bash
+/usr/sbin/usermod -aG sudo your_username
+```
