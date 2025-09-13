@@ -102,10 +102,11 @@
 *Remove installation media, reboot, and enjoy your fresh Debian server!*
 
 ## Adding user to sudoers
-*Must be root first*
+*Must be root first, type the command below then you will be asked to type a password. Root password*
 ```bash
 su
 ```
+*Then type this command below. Change the 'your_username' to your username.*
 ```bash
 /usr/sbin/usermod -aG sudo your_username
 ```
