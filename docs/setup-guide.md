@@ -25,6 +25,7 @@
     - [20.2 Update, Upgrade, and Install Sudo](#202-update-upgrade-and-install-sudo)
     - [20.3 Add User to Sudo Group](#203-add-user-to-sudo-group)  
     - [20.4 Apply Changes](#204-apply-changes)  
+21. [Installing Docker](#installing-docker)
 ---
 
 ## Installation Steps
