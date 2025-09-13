@@ -1,9 +1,13 @@
 # Server Setup Guide
 
 ## Installation
+Select an Installer Menu
 ![Installer Menu](./images/Installer_Menu.png)
+Select a language
 ![Select Language](./images/Select_Language.png)
+Select your location
 ![Select Location](./images/Select_Location.png)
+Configure your keyboard
 ![Configure Keyboard](./images/Config_Keyboard.png)
 ![Hostname](./images/Hostname.png)
 ![Domain Name](./images/Domain_Name.png)
