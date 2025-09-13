@@ -22,8 +22,9 @@
 19. [Installation Complete](#19-installation-complete)  
 20. [Add User to Sudoers](#add-user-to-sudoers)
     - [20.1 Switch to Root](#201-switch-to-root)  
-    - [20.2 Add User to Sudo Group](#202-add-user-to-sudo-group)  
-    - [20.3 Apply Changes](#203-apply-changes)  
+    - [20.2 Update, Upgrade, and Install Sudo](#202-update-upgrade-and-install-sudo)
+    - [20.3 Add User to Sudo Group](#203-add-user-to-sudo-group)  
+    - [20.4 Apply Changes](#204-apply-changes)  
 ---
 
 ## Installation Steps
@@ -111,13 +112,19 @@ su
 ```
 *(Enter the root password you set during installation.)*
 
-### 20.2 Add User to Sudo Group:
+### 20.2 Update, Upgrade, and Install Sudo
+```bash
+apt update && apt upgrade
+apt install sudo
+```
+
+### 20.3 Add User to Sudo Group:
 ```bash
 /usr/sbin/usermod -aG sudo your_username
 ```
 *(Replace your_username with your actual login username.)*
 
-### 20.3 Apply Changes
+### 20.4 Apply Changes
 Then reboot to apply changes.
 ```bash
 systemctl reboot
