@@ -21,6 +21,7 @@
 18. [Software Selection](#18-software-selection)  
 19. [Installation Complete](#19-installation-complete)  
 
+[Add User to Sudoers](#add-user-to-sudoers)
 ---
 
 ## Installation Steps
@@ -101,12 +102,21 @@
 ![Installation Complete](./images/Installation_Complete.png)  
 *Remove installation media, reboot, and enjoy your fresh Debian server!*
 
-## Adding user to sudoers
-*Must be root first, type the command below then you will be asked to type a password. Root password*
+## Add User to Sudoers
+### 1. Switch to the root user:
 ```bash
 su
 ```
-*Then type this command below. Change the 'your_username' to your username.*
+*(Enter the root password you set during installation.)*
+
+### 2. Add your user to the sudo group:
 ```bash
 /usr/sbin/usermod -aG sudo your_username
+```
+*(Replace your_username with your actual login username.)*
+
+### 3. Log out and log back in, or reboot, for the changes to apply.
+Your user can now run admin commands with:
+```bash
+sudo <command>
 ```
