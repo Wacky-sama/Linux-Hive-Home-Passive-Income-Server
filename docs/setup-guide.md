@@ -26,6 +26,7 @@
     - [20.3 Add User to Sudo Group](#203-add-user-to-sudo-group)  
     - [20.4 Apply Changes](#204-apply-changes)  
 21. [Installing Docker](#installing-docker)
+22. [Docker Honeygain](#setting-up-honeygain)
 ---
 
 ## Installation Steps
@@ -142,3 +143,6 @@ sudo <command>
 
 ## Installing Docker
 [Go to this link and follow the instructions.](https://docs.docker.com/engine/install/debian/)
+
+## Setting up Honeygain
+[Docker Honeygain](docker-honeygain.md)
