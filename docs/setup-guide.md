@@ -21,7 +21,7 @@
 18. [Software Selection](#18-software-selection)  
 19. [Installation Complete](#19-installation-complete)  
 
-[Add User to Sudoers](#add-user-to-sudoers)
+[Add User to Sudoers](#add-user-to-sudoers-1)
 ---
 
 ## Installation Steps
