@@ -118,6 +118,11 @@ su
 *(Replace your_username with your actual login username.)*
 
 ### 20.3 Apply Changes
+Then reboot to apply changes.
+```bash
+systemctl reboot
+```
+
 Your user can now run admin commands with:
 ```bash
 sudo <command>
