@@ -14,8 +14,8 @@ This title and introduction were **AI-assisted and slightly modified** by the au
 
 ## Server Specs
 - **OS**: Debian 13 (Trixie)
-- **CPU**: 
-- **RAM**: 
+- **CPU**: Intel Core i7-4500U
+- **RAM**: 8 GB
 - **Storage**: 1TB HDD  
 
 ---
