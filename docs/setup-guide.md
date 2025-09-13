@@ -105,19 +105,19 @@
 *Remove installation media, reboot, and enjoy your fresh Debian server!*
 
 ## Add User to Sudoers
-### 1. Switch to the root user:
+### 1. Switch to Root:
 ```bash
 su
 ```
 *(Enter the root password you set during installation.)*
 
-### 2. Add your user to the sudo group:
+### 2. Add User to Sudo Group:
 ```bash
 /usr/sbin/usermod -aG sudo your_username
 ```
 *(Replace your_username with your actual login username.)*
 
-### 3. Log out and log back in, or reboot, for the changes to apply.
+### 3. Apply Changes
 Your user can now run admin commands with:
 ```bash
 sudo <command>
