@@ -129,8 +129,15 @@ Then reboot to apply changes.
 ```bash
 systemctl reboot
 ```
+OR
+```bash
+reboot now
+```
 
 Your user can now run admin commands with:
 ```bash
 sudo <command>
 ```
+
+## Installing Docker
+[Go to this link and follow the instructions.](https://docs.docker.com/engine/install/debian/)
