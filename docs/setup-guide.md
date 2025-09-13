@@ -20,8 +20,10 @@
 17. [Survey](#17-survey)  
 18. [Software Selection](#18-software-selection)  
 19. [Installation Complete](#19-installation-complete)  
-
-[Add User to Sudoers](#add-user-to-sudoers-1)
+20. [Add User to Sudoers](#add-user-to-sudoers-1)
+    - [20.1 Switch to Root](#201-switch-to-root)  
+    - [20.2 Add User to Sudo Group](#202-add-user-to-sudo-group)  
+    - [20.3 Apply Changes](#203-apply-changes)  
 ---
 
 ## Installation Steps
