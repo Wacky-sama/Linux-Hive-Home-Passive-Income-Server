@@ -78,8 +78,8 @@ cd /opt/ssh-monitor
 #!/bin/bash
 
 # Configuration
-BOT_TOKEN="" #Fill
-CHAT_ID="" #Fill
+BOT_TOKEN="" # Fill
+CHAT_ID="" # Fill
 HOSTNAME=$(hostname)
 SERVER_IP=$(hostname -I | awk '{print $1}')
 
