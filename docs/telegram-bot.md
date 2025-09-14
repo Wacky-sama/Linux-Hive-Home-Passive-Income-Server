@@ -24,7 +24,7 @@ If this doesn't work, try this method I used:
 curl https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getUpdates
 ```
 
-Creating monitoring directory
+### Creating monitoring directory
 ```bash
 sudo mkdir -p /opt/ssh-monitor
 cd /opt/ssh-monitor
@@ -273,4 +273,311 @@ minute hour day month weekday command
   |     |    +---------------------- Day of month (1-31)
   |     +--------------------------- Hour (0-23)
   +--------------------------------- Minute (0-59)
+```
+
+### Creating simple command handler
+
+### Step 1: Creating commands on Bot
+1. Type /mybots to BotFather
+2. Click on your bot
+3. Then click "Edit Bot"
+4. Then click "Edit Commands"
+Paste this:
+```bash
+start - Start monitoring notifications
+stats - Get current security statistics
+status - Check server status
+help - Show available commands
+```
+
+### Step 2: Creating 
+```bash
+cd /opt/ssh-monitor
+```
+
+```bash
+#!/bin/bash
+
+# Handles /start, /stats, /status, /help commands
+
+# Configuration
+BOT_TOKEN=""
+CHAT_ID=""
+HOSTNAME=$(hostname)
+SERVER_IP=$(hostname -I | awk '{print $1}')
+OFFSET_FILE="/tmp/telegram_offset"
+
+# Emojis
+EMOJI_ROBOT="🤖"
+EMOJI_STATS="📊"
+EMOJI_SUCCESS="✅"
+EMOJI_FAIL="❌"
+EMOJI_BAN="🚫"
+EMOJI_ALERT="🚨"
+EMOJI_SHIELD="🛡️"
+EMOJI_FIRE="🔥"
+
+# Function to send Telegram message
+send_message() {
+    local chat_id="$1"
+    local message="$2"
+    curl -s -X POST \
+        "https://api.telegram.org/bot${BOT_TOKEN}/sendMessage" \
+        -d "chat_id=${chat_id}" \
+        -d "text=${message}" \
+        -d "parse_mode=Markdown" >/dev/null 2>&1
+}
+
+# Function to get current timestamp
+get_timestamp() {
+    date '+%Y-%m-%d %H:%M:%S'
+}
+
+# Handle /start command
+handle_start() {
+    local chat_id="$1"
+    local message="${EMOJI_ROBOT} *Welcome to WackySSH Security Bot!*
+
+${EMOJI_SHIELD} I'm your personal SSH security guard, monitoring \`${HOSTNAME}\` 24/7!
+
+*What I do for you:*
+${EMOJI_SUCCESS} Monitor successful logins
+${EMOJI_FAIL} Track failed login attempts
+${EMOJI_ALERT} Catch invalid user attempts
+${EMOJI_BAN} Report IP bans from fail2ban
+${EMOJI_STATS} Send daily security statistics
+
+*Available commands:*
+/stats - Current security stats
+/status - Server status
+/help - Show this help
+
+${EMOJI_FIRE} *Your home lab fortress is secured!*"
+    
+    send_message "$chat_id" "$message"
+}
+
+# Handle /stats command
+handle_stats() {
+    local chat_id="$1"
+    local today=$(date '+%Y-%m-%d')
+    local banned_total=$(fail2ban-client status sshd 2>/dev/null | grep "Total banned" | awk '{print $4}' || echo "0")
+    local banned_current=$(fail2ban-client status sshd 2>/dev/null | grep "Currently banned" | awk '{print $4}' || echo "0")
+    local failed_today=$(journalctl -u ssh --since "today" 2>/dev/null | grep -c "Failed password" || echo "0")
+    local success_today=$(journalctl -u ssh --since "today" 2>/dev/null | grep -c "Accepted publickey" || echo "0")
+    local invalid_today=$(journalctl -u ssh --since "today" 2>/dev/null | grep -c "Invalid user" || echo "0")
+    local uptime=$(uptime -p)
+    
+    local message="${EMOJI_STATS} *Current SSH Security Stats*
+${EMOJI_ROBOT} Server: \`${HOSTNAME}\` (${SERVER_IP})
+📅 Date: \`${today}\`
+
+*Today's Activity:*
+${EMOJI_SUCCESS} Successful logins: \`${success_today}\`
+${EMOJI_FAIL} Failed attempts: \`${failed_today}\`
+${EMOJI_ALERT} Invalid users: \`${invalid_today}\`
+
+*fail2ban Status:*
+${EMOJI_BAN} Currently banned IPs: \`${banned_current}\`
+${EMOJI_BAN} Total banned today: \`${banned_total}\`
+
+*System Info:*
+⏰ Server uptime: \`${uptime}\`
+🕐 Generated: \`$(get_timestamp)\`
+
+${EMOJI_SHIELD} *Security status: ACTIVE*"
+    
+    send_message "$chat_id" "$message"
+}
+
+# Handle /status command
+handle_status() {
+    local chat_id="$1"
+    local ssh_status=$(systemctl is-active ssh)
+    local fail2ban_status=$(systemctl is-active fail2ban)
+    local monitor_status=$(systemctl is-active ssh-monitor 2>/dev/null || echo "unknown")
+    local load=$(uptime | awk -F'load average:' '{ print $2 }')
+    local disk_usage=$(df -h / | awk 'NR==2{printf "%s", $5}')
+    local memory_usage=$(free | awk 'NR==2{printf "%.1f%%", $3*100/$2 }')
+    
+    local message="${EMOJI_ROBOT} *Server Status Report*
+🖥️ Server: \`${HOSTNAME}\`
+🌐 IP: \`${SERVER_IP}\`
+
+*Services:*
+🔐 SSH: \`${ssh_status}\`
+🛡️ fail2ban: \`${fail2ban_status}\`
+${EMOJI_ROBOT} SSH Monitor: \`${monitor_status}\`
+
+*System Resources:*
+💿 Disk usage: \`${disk_usage}\`
+🧠 Memory usage: \`${memory_usage}\`
+⚡ Load average:\`${load}\`
+
+🕐 Status time: \`$(get_timestamp)\`
+
+${EMOJI_FIRE} *All systems operational!*"
+    
+    send_message "$chat_id" "$message"
+}
+
+# Handle /help command
+handle_help() {
+    local chat_id="$1"
+    local message="${EMOJI_ROBOT} *WackySSH Security Bot - Help*
+
+*Available Commands:*
+/start - Welcome message and bot info
+/stats - Current security statistics
+/status - Server and service status
+/help - Show this help message
+
+*What I monitor automatically:*
+${EMOJI_SUCCESS} Successful SSH logins
+${EMOJI_FAIL} Failed login attempts
+${EMOJI_ALERT} Invalid user attempts
+${EMOJI_BAN} IP bans and unbans
+📊 Daily security summaries
+
+*Bot Features:*
+⚡ Real-time monitoring
+🔄 24/7 operation
+📱 Instant notifications
+🛡️ fail2ban integration
+
+${EMOJI_FIRE} *Built for maximum security!*
+
+Need help? Your server admin is a legend! ${EMOJI_SHIELD}"
+    
+    send_message "$chat_id" "$message"
+}
+
+# Main function to check for new messages and handle commands
+check_messages() {
+    # Get last processed update ID
+    local offset=0
+    if [ -f "$OFFSET_FILE" ]; then
+        offset=$(cat "$OFFSET_FILE")
+    fi
+    
+    # Get new updates
+    local updates=$(curl -s "https://api.telegram.org/bot${BOT_TOKEN}/getUpdates?offset=$((offset + 1))&timeout=10")
+    
+    # Process each update
+    echo "$updates" | jq -r '.result[]? | @base64' 2>/dev/null | while read -r update; do
+        if [ -n "$update" ]; then
+            local decoded=$(echo "$update" | base64 -d 2>/dev/null)
+            local update_id=$(echo "$decoded" | jq -r '.update_id // empty' 2>/dev/null)
+            local message_text=$(echo "$decoded" | jq -r '.message.text // empty' 2>/dev/null)
+            local chat_id=$(echo "$decoded" | jq -r '.message.chat.id // empty' 2>/dev/null)
+            
+            # Update offset
+            if [ -n "$update_id" ]; then
+                echo "$update_id" > "$OFFSET_FILE"
+            fi
+            
+            # Handle commands
+            if [ -n "$message_text" ] && [ -n "$chat_id" ]; then
+                case "$message_text" in
+                    "/start"|"/start@WackySSH_Bot")
+                        handle_start "$chat_id"
+                        ;;
+                    "/stats"|"/stats@WackySSH_Bot")
+                        handle_stats "$chat_id"
+                        ;;
+                    "/status"|"/status@WackySSH_Bot")
+                        handle_status "$chat_id"
+                        ;;
+                    "/help"|"/help@WackySSH_Bot")
+                        handle_help "$chat_id"
+                        ;;
+                esac
+            fi
+        fi
+    done
+}
+
+# Main execution
+case "${1}" in
+    "listen")
+        echo "Starting Telegram bot command listener..."
+        while true; do
+            check_messages
+            sleep 2
+        done
+        ;;
+    "test-start")
+        handle_start "$CHAT_ID"
+        ;;
+    "test-stats")
+        handle_stats "$CHAT_ID"
+        ;;
+    "test-status")
+        handle_status "$CHAT_ID"
+        ;;
+    "test-help")
+        handle_help "$CHAT_ID"
+        ;;
+    *)
+        echo "Usage: $0 {listen|test-start|test-stats|test-status|test-help}"
+        echo "  listen     - Start listening for commands"
+        echo "  test-*     - Test individual commands"
+        exit 1
+        ;;
+esac
+```
+
+Copy the script from above
+```bash
+sudo nano bot_command_handler.sh
+```
+
+Make it executable:
+```bash
+sudo chmod +x bot_command_handler.sh
+```
+
+Install jq for JSON parsing
+```bash
+sudo apt install jq
+```
+
+Test the commands work:
+Test each command manually
+```bash
+sudo ./bot_command_handler.sh test-start
+sudo ./bot_command_handler.sh test-stats  
+sudo ./bot_command_handler.sh test-status
+sudo ./bot_command_handler.sh test-help
+```
+Check your phone - you should get messages for each test! 
+
+Now create a service to listen for commands:
+```bash
+sudo nano /etc/systemd/system/telegram-bot.service
+```
+
+Service config:
+```bash
+[Unit]
+Description=Telegram Bot Command Handler
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/ssh-monitor
+ExecStart=/opt/ssh-monitor/bot_command_handler.sh listen
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Start the command listener:
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable telegram-bot
+sudo systemctl start telegram-bot
 ```
