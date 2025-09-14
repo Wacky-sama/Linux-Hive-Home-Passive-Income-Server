@@ -43,18 +43,18 @@ This setup typically costs thousands when purchased as a managed security servic
 - SSH access to your server
 
 ### Step 1: Create the Telegram Bot
-1. Message @BotFather on Telegram
-2. click /start
-3. Send /newbot
-4. Give it a name like "SSH Security Bot"
-5. Give it a username like "your_ssh_security_bot"
-6. Copy the bot token (looks like 123456789:ABCdefGhIjKlMnOpQrStUvWxYz)
+1. Message **@BotFather** on Telegram
+2. click **/start**
+3. Send **/newbot**
+4. Give it a name like **"SSH Security Bot"**
+5. Give it a username like **"your_ssh_security_bot"**
+6. Copy the bot token **(looks like 123456789:ABCdefGhIjKlMnOpQrStUvWxYz)**
 
 ### Step 2: Get your Chat ID and Test Bot
 1. Message your new bot
-2. Clic /start
+2. Clic **/start**
 3. Send a message
-4. Visit: https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getUpdates
+4. Visit: **https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getUpdates**
 5. Find your chat_id in the JSON response, something like this:
 ```bash
 "chat": {
@@ -323,10 +323,10 @@ minute hour day month weekday command
 ### Step 7: Add Interactive Commands
 
 ### Step 1: Configure Bot Commands
-1. Type /mybots to BotFather
+1. Type **/mybots** to **BotFather**
 2. Click on your bot
-3. Then click "Edit Bot"
-4. Then click "Edit Commands"
+3. Then click **"Edit Bot"**
+4. Then click **"Edit Commands"**
 Paste this:
 ```bash
 start - Start monitoring notifications
