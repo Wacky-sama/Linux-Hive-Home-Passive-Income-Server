@@ -117,7 +117,7 @@ su
 ### 20.2 Update, Upgrade, and Install Sudo
 ```bash
 apt update && apt upgrade
-apt install sudo
+apt install sudo fail2ban
 ```
 
 ### 20.3 Add User to Sudo Group:
