@@ -1,0 +1,15 @@
+Port 22
+# Authentication:
+
+LoginGraceTime 30s
+PermitRootLogin no
+#StrictModes yes
+MaxAuthTries 3
+MaxSessions 2
+AllowUsers your_username
+ClientAliveInterval 300
+ClientAliveCountMax 2
+
+PubkeyAuthentication yes
+
+PasswordAuthentication no
