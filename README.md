@@ -22,8 +22,8 @@ This title and introduction were **AI-assisted and slightly modified** by the au
 
 ## Quick Start
 Check out the step-by-step guide:  
-[Setup Guide](docs/setup-guide.md)
-[Running Honeygain with Docker](docs/docker-honeygain.md)  
+- [Setup Guide](docs/setup-guide.md)
+- [Running Honeygain with Docker](docs/docker-honeygain.md)  
 
 ---
 
