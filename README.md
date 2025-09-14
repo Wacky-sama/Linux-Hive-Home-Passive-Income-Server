@@ -27,5 +27,10 @@ Check out the step-by-step guide:
 
 ---
 
+## Related Repositories
+- **[SSH Key Authentication with configurations](https://github.com/Wacky-sama/SSH-Key-Authentication-Tutorial)**
+
+---
+
 ## Motto
 > Efficiency, tech skills, and passive income—**all in one box**.
