@@ -8,7 +8,7 @@
 5. Give it a username like "your_ssh_security_bot"
 6. Copy the bot token (looks like 123456789:ABCdefGhIjKlMnOpQrStUvWxYz)
 
-### Step 2: Get your Chat ID
+### Step 2: Get your Chat ID and Test Bot
 1. Message your new bot
 2. Clic /start
 3. Send a message
@@ -24,12 +24,13 @@ If this doesn't work, try this method I used:
 curl https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getUpdates
 ```
 
-### Creating monitoring directory
+### Step 3: Creating monitoring directory
 ```bash
 sudo mkdir -p /opt/ssh-monitor
 cd /opt/ssh-monitor
 ```
 
+### Step 4: Create Main Monitoring Script
 ```bash
 #!/bin/bash
 
@@ -225,6 +226,7 @@ sudo ./ssh_telegram_monitor.sh test
 ```
 Check your phone - you should get a test message! 
 
+### Step 5: Configure System Service
 Now create a systemd service to run it 24/7:
 ```bash
 sudo nano /etc/systemd/system/ssh-monitor.service
@@ -254,6 +256,7 @@ sudo systemctl enable ssh-monitor
 sudo systemctl start ssh-monitor
 ```
 
+### Step 6: Schedule Daily Stats
 Crontab = Cron Table - it's Linux's built-in scheduler! It runs commands automatically at specific times.
 Set up daily stats (crontab):
 ```bash
@@ -275,9 +278,9 @@ minute hour day month weekday command
   +--------------------------------- Minute (0-59)
 ```
 
-### Creating simple command handler
+### Step 7: Add Interactive Commands
 
-### Step 1: Creating commands on Bot
+### Step 1: Configure Bot Commands
 1. Type /mybots to BotFather
 2. Click on your bot
 3. Then click "Edit Bot"
@@ -290,7 +293,7 @@ status - Check server status
 help - Show available commands
 ```
 
-### Step 2: Creating 
+### Step 2: Create Command Handler Script 
 ```bash
 cd /opt/ssh-monitor
 ```
@@ -552,6 +555,7 @@ sudo ./bot_command_handler.sh test-help
 ```
 Check your phone - you should get messages for each test! 
 
+### Step 3: Configure System Service
 Now create a service to listen for commands:
 ```bash
 sudo nano /etc/systemd/system/telegram-bot.service
