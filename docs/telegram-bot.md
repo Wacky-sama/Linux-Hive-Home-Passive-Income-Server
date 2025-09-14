@@ -58,7 +58,7 @@ This setup typically costs thousands when purchased as a managed security servic
 5. Find your chat_id in the JSON response, something like this:
 ```bash
 "chat": {
-          "id": 23131231245,
+          "id": ,
 ```
 
 If this doesn't work, try this method I used:
@@ -73,12 +73,13 @@ cd /opt/ssh-monitor
 ```
 
 ### Step 4: Create Main Monitoring Script
+**Note:** Fill in the double quotation with your **Bot Token** and **Chat ID**. I put **'# Fill'** on the lines.
 ```bash
 #!/bin/bash
 
 # Configuration
-BOT_TOKEN=""
-CHAT_ID=""
+BOT_TOKEN="" #Fill
+CHAT_ID="" #Fill
 HOSTNAME=$(hostname)
 SERVER_IP=$(hostname -I | awk '{print $1}')
 
@@ -336,6 +337,7 @@ help - Show available commands
 ```
 
 ### Step 2: Create Command Handler Script 
+**Note:** Fill in the double quotation with your **Bot Token** and **Chat ID**. I put **'# Fill'** on the lines.
 ```bash
 cd /opt/ssh-monitor
 ```
@@ -346,8 +348,8 @@ cd /opt/ssh-monitor
 # Handles /start, /stats, /status, /help commands
 
 # Configuration
-BOT_TOKEN=""
-CHAT_ID=""
+BOT_TOKEN="" # Fill
+CHAT_ID="" # Fill
 HOSTNAME=$(hostname)
 SERVER_IP=$(hostname -I | awk '{print $1}')
 OFFSET_FILE="/tmp/telegram_offset"
@@ -521,9 +523,23 @@ check_messages() {
                 echo "$update_id" > "$OFFSET_FILE"
             fi
             
+	    if [ -n "$message_text" ] && [ -n "$chat_id" ]; then
+            		echo "$(date): Message from chat_id $chat_id (user: $(echo "$decoded" | jq -r '.message.from.first_name // "unknown"')): $message_text" >> /var/log/telegram-access.log
+            
+            	# Only respond to authorized users
+            	if [ "$chat_id" != "" ]; then # Fill
+                	echo "$(date): Unauthorized access attempt from $chat_id" >> /var/log/telegram-access.log
+                	continue
+            	fi
+            fi
+
             # Handle commands
             if [ -n "$message_text" ] && [ -n "$chat_id" ]; then
-                case "$message_text" in
+                if ["$chat_id" != ""]; then # Fill
+			continue
+		fi
+
+		case "$message_text" in
                     "/start"|"/start@WackySSH_Bot")
                         handle_start "$chat_id"
                         ;;
