@@ -209,7 +209,7 @@ Time: \`$(get_timestamp)\`
 esac
 ```
 
-Save the script (copy from the artifact above)
+Save the script
 ```bash
 sudo nano ssh_telegram_monitor.sh
 ```
@@ -254,6 +254,7 @@ sudo systemctl enable ssh-monitor
 sudo systemctl start ssh-monitor
 ```
 
+Crontab = Cron Table - it's Linux's built-in scheduler! It runs commands automatically at specific times.
 Set up daily stats (crontab):
 ```bash
 sudo crontab -e
@@ -261,4 +262,15 @@ sudo crontab -e
 Add this line:
 ```bash
 0 9 * * * /opt/ssh-monitor/ssh_telegram_monitor.sh stats
+```
+It is like this:
+```bash
+minute hour day month weekday command
+  |     |    |    |      |       |
+  |     |    |    |      |       +-- Command to run
+  |     |    |    |      +---------- Day of week (0-7, Sunday=0 or 7)  
+  |     |    |    +----------------- Month (1-12)
+  |     |    +---------------------- Day of month (1-31)
+  |     +--------------------------- Hour (0-23)
+  +--------------------------------- Minute (0-59)
 ```
