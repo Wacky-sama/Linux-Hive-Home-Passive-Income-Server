@@ -1,6 +1,12 @@
-# Running Honeygain with Docker
+# Running Honeygain with Docker and setting up the folder
 
-## Pulling the docker Image
+## Step 1: Create folder
+```bash
+sudo mkdir -p /srv/docker/honeygain
+sudo chown $USER:$USER /srv/docker/honeygain
+```
+
+## Step 2: Pulling the docker Image
 ```bash
 docker pull honeygain/honeygain
 ```
@@ -11,14 +17,15 @@ docker pull honeygain/honeygain
 docker run honeygain/honeygain -tou-get
 
 # Start Honeygain container by running:
-docker run honeygain/honeygain -tou-accept -email "ACCOUNT_EMAIL" -pass "ACCOUNT_PASSWORD" -device "DEVICE_NAME"
+docker run -d --name honeygain-v /srv/docker/honeygain:/data honeygain/honeygain -tou-accept -email "ACCOUNT_EMAIL" -pass "ACCOUNT_PASSWORD" -device "DEVICE_NAME"
 ```
+
 ## Checking Logs
 ```bash
 docker logs -f honeygain
 ```
 
-## Auto-start on Boot (Optional)
+## Auto-start on Boot (Recommended)
 ```bash
 docker update --restart unless-stopped honeygain
 ```
