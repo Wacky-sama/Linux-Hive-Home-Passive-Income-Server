@@ -17,7 +17,7 @@ docker pull honeygain/honeygain
 docker run honeygain/honeygain -tou-get
 
 # Start Honeygain container by running:
-docker run -d --name honeygain-v /srv/docker/honeygain:/data honeygain/honeygain -tou-accept -email "ACCOUNT_EMAIL" -pass "ACCOUNT_PASSWORD" -device "DEVICE_NAME"
+docker run -d --name honeygain -v /srv/docker/honeygain:/data honeygain/honeygain -tou-accept -email "ACCOUNT_EMAIL" -pass "ACCOUNT_PASSWORD" -device "DEVICE_NAME"
 ```
 **Note:** Replace **ACCOUNT_EMAIL**, **ACCOUNT_PASSWORD**, and **DEVICE_NAME** with your own details.
 
