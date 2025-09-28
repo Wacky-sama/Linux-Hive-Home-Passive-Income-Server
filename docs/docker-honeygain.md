@@ -23,7 +23,7 @@ docker run -d --name honeygain -v /srv/docker/honeygain:/data honeygain/honeygai
 
 ## Checking Logs
 ```bash
-docker logs -f honeygain
+docker logs -tf honeygain
 ```
 
 ## Auto-start on Boot (Recommended)
