@@ -93,7 +93,7 @@ Paste this config:
 </VirtualHost>
 ```
 
-Disable the default .conf file:
+Disable the default site:
 
 ```bash
 sudo a2dissite 000-default.conf
