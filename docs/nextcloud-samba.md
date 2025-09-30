@@ -30,6 +30,14 @@ Step 4: Create Database for Nextcloud
 Login to MariaDB:
 
 ```bash
+
+sudo mysql -u root -p
+
+```
+
+Then inside MariaDB:
+
+```bash
 CREATE DATABASE nextcloud;
 CREATE USER 'nextclouduser'@'localhost' IDENTIFIED BY 'StrongPasswordHere';
 GRANT ALL PRIVILEGES ON nextcloud.* TO 'nextclouduser'@'localhost';
