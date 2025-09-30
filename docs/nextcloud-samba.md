@@ -22,17 +22,18 @@ sudo mariadb-secure-installation
 ```
 
 - Set a root password
-- Remove anonymous users
-- Disallow remote root login
-- Remove test database
+- Switch to unix_socket authentication [Y/n] n
+- Change the root password? [Y/n] n
+- Remove anonymous users? [Y/n] Y
+- Disallow root login remotely? [Y/n] Y
+- Remove test database and access to it? [Y/n] Y
+- Reload privilege tables now? [Y/n] Y
 
 Step 4: Create Database for Nextcloud
 Login to MariaDB:
 
 ```bash
-
 sudo mysql -u root -p
-
 ```
 
 Then inside MariaDB:
