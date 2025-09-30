@@ -72,3 +72,28 @@ Then restart Samba:
 ```bash
 sudo systemctl restart smbd
 ```
+
+### Configure Apache for Nextcloud
+Create a config file:
+```bash
+sudo nano /etc/apache2/sites-available/nextcloud.conf
+```
+Paste this:
+```bash
+<VirtualHost *:80>
+    DocumentRoot /var/www/html/nextcloud/
+    ServerName your-server-ip-or-domain
+
+    <Directory /var/www/html/nextcloud/>
+        Require all granted
+        AllowOverride All
+        Options FollowSymLinks MultiViews
+    </Directory>
+</VirtualHost>
+```
+Enable site + modules:
+```bash
+sudo a2ensite nextcloud.conf
+sudo a2enmod rewrite headers env dir mime
+sudo systemctl reload apache2
+```
