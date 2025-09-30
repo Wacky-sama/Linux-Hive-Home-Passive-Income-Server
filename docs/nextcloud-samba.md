@@ -52,7 +52,7 @@ Step 5: Download Nextcloud
 
 ```bash
 cd /var/www/
-wget https://download.nextcloud.com/server/releases/latest.zip
+sudo wget https://download.nextcloud.com/server/releases/latest.zip
 sudo unzip latest.zip
 ```
 
