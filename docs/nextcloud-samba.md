@@ -115,3 +115,69 @@ You’ll see the Nextcloud setup page:
 - Enter the database user (nextclouduser), password, and database name (nextcloud)
 - Leave host as localhost
   Click Install.
+
+If you cannot create an account thru the Web, try this another method that I used:
+
+```bash
+sudo -u www-data php /var/www/nextcloud/occ maintenance:install \
+  --database "mysql" \
+  --database-name "nextcloud" \
+  --database-user "nextclouduser" \
+  --database-pass "StrongPasswordHere" \
+  --admin-user "create_your_own_admin_user" \
+  --admin-pass "create_your_own_admin_password"
+```
+
+Then you'll see this:
+
+**Nextcloud was successfully installed**
+
+After that, you can to your browser then refresh it. If you encounter this error:
+
+Access through untrusted domain Please contact your administrator. If you are an administrator, edit the "trusted_domains" setting in config/config.php like the example in config.sample.php. Further information how to configure this can be found in the documentation.
+
+Edit this file:
+
+```bash
+sudo nano /var/www/nextcloud/config/config.php
+```
+
+Look for the trusted_domains section
+
+It should look something like this:
+
+```bash
+'trusted_domains' =>
+array (
+  0 => 'localhost',
+),
+```
+
+Add your server’s IP or domain
+
+```bash
+'trusted_domains' =>
+array (
+  0 => 'localhost',
+  1 => '192.168.1.100',
+  2 => 'cloud.example.com',
+),
+```
+
+Save and exit
+
+In nano, press:
+
+```bash
+CTRL + O  (save)
+ENTER
+CTRL + X  (exit)
+```
+
+Restart Apache
+
+```bash
+sudo systemctl restart apache2
+```
+
+Now refresh your browser — the warning should disappear.
