@@ -57,6 +57,7 @@ sudo unzip latest.zip
 ```
 
 Step 6: Set permissions
+
 **Note:** This is still inside **/var/www/**
 
 ```bash
