@@ -15,6 +15,7 @@ sudo apt install -y apache2 mariadb-server libapache2-mod-php php-gd php-json ph
 ```
 
 Step 3: Secure MariaDB
+
 Run the secure installation:
 
 ```bash
@@ -30,6 +31,7 @@ sudo mariadb-secure-installation
 - Reload privilege tables now? [Y/n] Y
 
 Step 4: Create Database for Nextcloud
+
 Login to MariaDB:
 
 ```bash
