@@ -1,6 +1,6 @@
 # Samba and NextCloud Guide
 
-### Installing Samba, NextCloud, MariaDB
+### Installing Samba, NextCloud, Php, and MariaDB
 
 Samba
 
@@ -27,6 +27,13 @@ Make Apache serve it:
 
 ```bash
 sudo chown -R www-data:www-data /var/www/html/nextcloud
+```
+
+PHP
+
+```bash
+sudo apt update
+sudo apt install apache2 libapache2-mod-php php-gd php-json php-mysql php-curl php-mbstring php-intl php-imagick php-xml php-zip php-bz2 php-gmp -y
 ```
 
 MariaDB
