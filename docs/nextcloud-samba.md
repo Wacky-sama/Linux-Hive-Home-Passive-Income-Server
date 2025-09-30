@@ -102,8 +102,13 @@ sudo systemctl restart apache2
 ```
 
 Step 8: Access Nextcloud
+
 Open a browser and go to:
+
+```bash
 http://YOUR_SERVER_IP/
+```
+
 You’ll see the Nextcloud setup page:
 
 - Create an admin account
