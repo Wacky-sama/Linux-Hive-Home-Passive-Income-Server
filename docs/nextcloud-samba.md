@@ -188,3 +188,72 @@ sudo systemctl restart apache2
 ```
 
 Now refresh your browser — the warning should disappear.
+
+Now if you want to change the storage from **/var** to **/home**. You can try this method I used.
+
+Steps:
+
+```bash
+# 1. Stop Apache so Nextcloud won’t touch files
+sudo systemctl stop apache2
+
+# 2. Create new directory on /home
+sudo mkdir /home/nextcloud-data
+
+# 3. Set correct permissions
+sudo chown -R www-data:www-data /home/nextcloud-data
+sudo chmod 750 /home/nextcloud-data
+
+# 4. Move existing Nextcloud data safely
+sudo rsync -av /var/www/nextcloud/data/ /home/nextcloud-data/
+
+# 5. Backup original folder (just in case)
+sudo mv /var/www/nextcloud/data /var/www/nextcloud/data.bak
+```
+
+Now edit Nextcloud config:
+
+```bash
+sudo nano /var/www/nextcloud/config/config.php
+```
+
+Find:
+
+```bash
+'datadirectory' => '/var/www/nextcloud/data',
+```
+
+Change to:
+
+```bash
+'datadirectory' => '/home/nextcloud-data',
+```
+
+Save & exit.
+
+```bash
+# 6. Restart Apache
+sudo systemctl start apache2
+```
+
+If you want to confirm that it’s actually using the /home partition now, you can run:
+
+```bash
+sudo -u www-data php /var/www/nextcloud/occ config:system:get datadirectory
+```
+
+That should return:
+
+```bash
+/home/nextcloud-data
+```
+
+Why 750 instead of 755?
+
+- 7 (rwx) → owner (www-data) can read/write/execute.
+- 5 (r-x) → group members (www-data group) can read/enter but not write.
+- 0 (---) → others (all other system users) have no access at all.
+
+If you set 755, all users on your system could traverse into your Nextcloud data folder and potentially see directory names (not files, since owned by www-data but still risky).
+
+Since Nextcloud data can contain private files, best practice is restricting access to just Apache/PHP (www-data) and not everyone on the server. That’s why we use 750.
