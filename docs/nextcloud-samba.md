@@ -93,6 +93,13 @@ Paste this config:
 </VirtualHost>
 ```
 
+Disable the default .conf file:
+
+```bash
+sudo a2dissite 000-default.conf
+sudo systemctl restart apache2
+```
+
 Enable required modules and the site:
 
 ```bash
