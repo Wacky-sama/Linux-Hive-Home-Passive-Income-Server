@@ -1,7 +1,9 @@
 # Telegram Bot Guide
 
 ## What You'll Have When Done
+
 By the end of this guide, you'll have built a comprehensive SSH security monitoring system that rivals enterprise-grade setups:
+
 ### Bulletproof SSH Configuration:
 
 Custom port (hiding from automated scans)
@@ -33,16 +35,19 @@ JSON parsing for reliable message processing
 Offset tracking to prevent duplicate notifications
 
 ### End Result:
+
 Your home lab server becomes virtually unbreachable to automated attacks while keeping you informed of all security events through a custom Telegram bot. You'll sleep better knowing your system actively hunts down attackers and reports everything in real-time to your phone.
 This setup typically costs thousands when purchased as a managed security service, but you'll build it yourself using open-source tools and gain deep understanding of SSH security in the process.
 
 ## Prerequisites
+
 - Debian/Ubuntu Linux server
 - Basic command line knowledge
 - Telegram account
 - SSH access to your server
 
 ### Step 1: Create the Telegram Bot
+
 1. Message **@BotFather** on Telegram
 2. click **/start**
 3. Send **/newbot**
@@ -51,29 +56,35 @@ This setup typically costs thousands when purchased as a managed security servic
 6. Copy the bot token **(looks like 123456789:ABCdefGhIjKlMnOpQrStUvWxYz)**
 
 ### Step 2: Get your Chat ID and Test Bot
+
 1. Message your new bot
 2. Clic **/start**
 3. Send a message
 4. Visit: **https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getUpdates**
 5. Find your chat_id in the JSON response, something like this:
+
 ```bash
 "chat": {
           "id": ,
 ```
 
 If this doesn't work, try this method I used:
+
 ```bash
 curl https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getUpdates
 ```
 
 ### Step 3: Creating monitoring directory
+
 ```bash
 sudo mkdir -p /opt/ssh-monitor
 cd /opt/ssh-monitor
 ```
 
 ### Step 4: Create Main Monitoring Script
+
 **Note:** Fill in the double quotation with your **Bot Token** and **Chat ID**. I put **'# Fill'** on the lines.
+
 ```bash
 #!/bin/bash
 
@@ -85,7 +96,7 @@ SERVER_IP=$(hostname -I | awk '{print $1}')
 
 # Emojis for style 💯
 EMOJI_BAN="🚫"
-EMOJI_SUCCESS="✅" 
+EMOJI_SUCCESS="✅"
 EMOJI_FAIL="❌"
 EMOJI_UNBAN="🔓"
 EMOJI_STATS="📊"
@@ -110,20 +121,20 @@ get_timestamp() {
 # Monitor SSH attempts
 monitor_ssh() {
     local logfile="/tmp/ssh_monitor.log"
-    
+
     # Initialize log position
     if [ ! -f "$logfile" ]; then
         journalctl -u ssh --since "1 minute ago" -n 0 > "$logfile"
     fi
-    
+
     # Get new log entries
     local new_logs=$(journalctl -u ssh --since "1 minute ago" -o short-iso)
-    
+
     # Process new entries
     while IFS= read -r line; do
         local timestamp=$(echo "$line" | awk '{print $1}')
         local message=$(echo "$line" | cut -d' ' -f4-)
-        
+
         # Failed password attempts
         if echo "$line" | grep -q "Failed password"; then
             local user=$(echo "$line" | grep -o "Failed password for [^ ]*" | awk '{print $4}')
@@ -134,7 +145,7 @@ ${EMOJI_ROBOT} Server: \`${HOSTNAME}\`
 🌐 IP: \`${ip}\`
 🕐 Time: \`$(get_timestamp)\`"
         fi
-        
+
         # Successful logins
         if echo "$line" | grep -q "Accepted publickey"; then
             local user=$(echo "$line" | grep -o "Accepted publickey for [^ ]*" | awk '{print $4}')
@@ -145,7 +156,7 @@ ${EMOJI_ROBOT} Server: \`${HOSTNAME}\`
 🌐 IP: \`${ip}\`
 🕐 Time: \`$(get_timestamp)\`"
         fi
-        
+
         # Invalid user attempts
         if echo "$line" | grep -q "Invalid user"; then
             local user=$(echo "$line" | grep -o "Invalid user [^ ]*" | awk '{print $3}')
@@ -156,7 +167,7 @@ ${EMOJI_ROBOT} Server: \`${HOSTNAME}\`
 🌐 IP: \`${ip}\`
 🕐 Time: \`$(get_timestamp)\`"
         fi
-        
+
     done <<< "$new_logs"
 }
 
@@ -164,16 +175,16 @@ ${EMOJI_ROBOT} Server: \`${HOSTNAME}\`
 monitor_fail2ban() {
     local logfile="/var/log/fail2ban.log"
     local position_file="/tmp/fail2ban_position"
-    
+
     # Initialize position file
     if [ ! -f "$position_file" ]; then
         wc -l < "$logfile" > "$position_file"
         return
     fi
-    
+
     local last_line=$(cat "$position_file")
     local current_line=$(wc -l < "$logfile")
-    
+
     if [ "$current_line" -gt "$last_line" ]; then
         local new_lines=$((current_line - last_line))
         tail -n "$new_lines" "$logfile" | while IFS= read -r line; do
@@ -188,7 +199,7 @@ ${EMOJI_ROBOT} Server: \`${HOSTNAME}\`
 🕐 Time: \`$(get_timestamp)\`
 💪 *Get rekt, script kiddie!*"
             fi
-            
+
             # Unban notifications
             if echo "$line" | grep -q "NOTICE.*Unban"; then
                 local ip=$(echo "$line" | grep -o "Unban [0-9.]*" | awk '{print $2}')
@@ -200,7 +211,7 @@ ${EMOJI_ROBOT} Server: \`${HOSTNAME}\`
 🕐 Time: \`$(get_timestamp)\`"
             fi
         done
-        
+
         echo "$current_line" > "$position_file"
     fi
 }
@@ -212,7 +223,7 @@ daily_stats() {
     local failed_today=$(journalctl -u ssh --since "today" | grep -c "Failed password" || echo "0")
     local success_today=$(journalctl -u ssh --since "today" | grep -c "Accepted publickey" || echo "0")
     local invalid_today=$(journalctl -u ssh --since "today" | grep -c "Invalid user" || echo "0")
-    
+
     send_telegram "${EMOJI_STATS} *Daily SSH Stats - ${today}*
 ${EMOJI_ROBOT} Server: \`${HOSTNAME}\` (${SERVER_IP})
 
@@ -254,27 +265,35 @@ esac
 ```
 
 Save the script
+
 ```bash
 sudo nano ssh_telegram_monitor.sh
 ```
 
 Make it executable
+
 ```bash
 sudo chmod +x ssh_telegram_monitor.sh
 ```
 
 Test it works
+
 ```bash
 sudo ./ssh_telegram_monitor.sh test
 ```
-Check your phone - you should get a test message! 
+
+Check your phone - you should get a test message!
 
 ### Step 5: Configure System Service
+
 Now create a systemd service to run it 24/7:
+
 ```bash
 sudo nano /etc/systemd/system/ssh-monitor.service
 ```
+
 Service config:
+
 ```bash
 [Unit]
 Description=SSH Telegram Monitor
@@ -293,6 +312,7 @@ WantedBy=multi-user.target
 ```
 
 Start the monitoring:
+
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl enable ssh-monitor
@@ -300,21 +320,27 @@ sudo systemctl start ssh-monitor
 ```
 
 ### Step 6: Schedule Daily Stats
+
 Crontab = Cron Table - it's Linux's built-in scheduler! It runs commands automatically at specific times.
 Set up daily stats (crontab):
+
 ```bash
 sudo crontab -e
 ```
+
 Add this line:
+
 ```bash
 0 9 * * * /opt/ssh-monitor/ssh_telegram_monitor.sh stats
 ```
+
 It is like this:
+
 ```bash
 minute hour day month weekday command
   |     |    |    |      |       |
   |     |    |    |      |       +-- Command to run
-  |     |    |    |      +---------- Day of week (0-7, Sunday=0 or 7)  
+  |     |    |    |      +---------- Day of week (0-7, Sunday=0 or 7)
   |     |    |    +----------------- Month (1-12)
   |     |    +---------------------- Day of month (1-31)
   |     +--------------------------- Hour (0-23)
@@ -324,11 +350,13 @@ minute hour day month weekday command
 ### Step 7: Add Interactive Commands
 
 ### Step 1: Configure Bot Commands
+
 1. Type **/mybots** to **BotFather**
 2. Click on your bot
 3. Then click **"Edit Bot"**
 4. Then click **"Edit Commands"**
-Paste this:
+   Paste this:
+
 ```bash
 start - Start monitoring notifications
 stats - Get current security statistics
@@ -336,8 +364,10 @@ status - Check server status
 help - Show available commands
 ```
 
-### Step 2: Create Command Handler Script 
+### Step 2: Create Command Handler Script
+
 **Note:** Fill in the double quotation with your **Bot Token** and **Chat ID**. I put **'# Fill'** on the lines.
+
 ```bash
 cd /opt/ssh-monitor
 ```
@@ -400,7 +430,7 @@ ${EMOJI_STATS} Send daily security statistics
 /help - Show this help
 
 ${EMOJI_FIRE} *Your home lab fortress is secured!*"
-    
+
     send_message "$chat_id" "$message"
 }
 
@@ -414,7 +444,7 @@ handle_stats() {
     local success_today=$(journalctl -u ssh --since "today" 2>/dev/null | grep -c "Accepted publickey" || echo "0")
     local invalid_today=$(journalctl -u ssh --since "today" 2>/dev/null | grep -c "Invalid user" || echo "0")
     local uptime=$(uptime -p)
-    
+
     local message="${EMOJI_STATS} *Current SSH Security Stats*
 ${EMOJI_ROBOT} Server: \`${HOSTNAME}\` (${SERVER_IP})
 📅 Date: \`${today}\`
@@ -433,7 +463,7 @@ ${EMOJI_BAN} Total banned today: \`${banned_total}\`
 🕐 Generated: \`$(get_timestamp)\`
 
 ${EMOJI_SHIELD} *Security status: ACTIVE*"
-    
+
     send_message "$chat_id" "$message"
 }
 
@@ -446,7 +476,7 @@ handle_status() {
     local load=$(uptime | awk -F'load average:' '{ print $2 }')
     local disk_usage=$(df -h / | awk 'NR==2{printf "%s", $5}')
     local memory_usage=$(free | awk 'NR==2{printf "%.1f%%", $3*100/$2 }')
-    
+
     local message="${EMOJI_ROBOT} *Server Status Report*
 🖥️ Server: \`${HOSTNAME}\`
 🌐 IP: \`${SERVER_IP}\`
@@ -464,7 +494,7 @@ ${EMOJI_ROBOT} SSH Monitor: \`${monitor_status}\`
 🕐 Status time: \`$(get_timestamp)\`
 
 ${EMOJI_FIRE} *All systems operational!*"
-    
+
     send_message "$chat_id" "$message"
 }
 
@@ -495,7 +525,7 @@ ${EMOJI_BAN} IP bans and unbans
 ${EMOJI_FIRE} *Built for maximum security!*
 
 Need help? Your server admin is a legend! ${EMOJI_SHIELD}"
-    
+
     send_message "$chat_id" "$message"
 }
 
@@ -506,10 +536,10 @@ check_messages() {
     if [ -f "$OFFSET_FILE" ]; then
         offset=$(cat "$OFFSET_FILE")
     fi
-    
+
     # Get new updates
     local updates=$(curl -s "https://api.telegram.org/bot${BOT_TOKEN}/getUpdates?offset=$((offset + 1))&timeout=10")
-    
+
     # Process each update
     echo "$updates" | jq -r '.result[]? | @base64' 2>/dev/null | while read -r update; do
         if [ -n "$update" ]; then
@@ -517,15 +547,15 @@ check_messages() {
             local update_id=$(echo "$decoded" | jq -r '.update_id // empty' 2>/dev/null)
             local message_text=$(echo "$decoded" | jq -r '.message.text // empty' 2>/dev/null)
             local chat_id=$(echo "$decoded" | jq -r '.message.chat.id // empty' 2>/dev/null)
-            
+
             # Update offset
             if [ -n "$update_id" ]; then
                 echo "$update_id" > "$OFFSET_FILE"
             fi
-            
+
 	    if [ -n "$message_text" ] && [ -n "$chat_id" ]; then
             		echo "$(date): Message from chat_id $chat_id (user: $(echo "$decoded" | jq -r '.message.from.first_name // "unknown"')): $message_text" >> /var/log/telegram-access.log
-            
+
             	# Only respond to authorized users
             	if [ "$chat_id" != "" ]; then # Fill
                 	echo "$(date): Unauthorized access attempt from $chat_id" >> /var/log/telegram-access.log
@@ -589,37 +619,45 @@ esac
 ```
 
 Copy the script from above
+
 ```bash
 sudo nano bot_command_handler.sh
 ```
 
 Make it executable:
+
 ```bash
 sudo chmod +x bot_command_handler.sh
 ```
 
 Install jq for JSON parsing
+
 ```bash
 sudo apt install jq
 ```
 
 Test the commands work:
 Test each command manually
+
 ```bash
 sudo ./bot_command_handler.sh test-start
-sudo ./bot_command_handler.sh test-stats  
+sudo ./bot_command_handler.sh test-stats
 sudo ./bot_command_handler.sh test-status
 sudo ./bot_command_handler.sh test-help
 ```
-Check your phone - you should get messages for each test! 
+
+Check your phone - you should get messages for each test!
 
 ### Step 3: Configure System Service
+
 Now create a service to listen for commands:
+
 ```bash
 sudo nano /etc/systemd/system/telegram-bot.service
 ```
 
 Service config:
+
 ```bash
 [Unit]
 Description=Telegram Bot Command Handler
@@ -638,6 +676,7 @@ WantedBy=multi-user.target
 ```
 
 Start the command listener:
+
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl enable telegram-bot
