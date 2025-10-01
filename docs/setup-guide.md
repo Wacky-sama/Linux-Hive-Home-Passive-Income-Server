@@ -35,97 +35,97 @@
 
 ### 1. Installer Menu
 
-![Installer Menu](./images/Installer_Menu.png)  
+![Installer Menu](./images/Installations/Installer_Menu.png)  
 _Choose "Install" or "Graphical Install" to begin the Debian setup._
 
 ### 2. Select Language
 
-![Select Language](./images/Select_Language.png)  
+![Select Language](./images/Installations/Select_Language.png)  
 _Pick the language for your installation process and system._
 
 ### 3. Select Location
 
-![Select Location](./images/Select_Location.png)  
+![Select Location](./images/Installations/Select_Location.png)  
 _Choose your country/region. This also affects time zones and mirrors._
 
 ### 4. Configure Keyboard
 
-![Configure Keyboard](./images/Config_Keyboard.png)  
+![Configure Keyboard](./images/Installations/Config_Keyboard.png)  
 _Select the keyboard layout you’ll use._
 
 ### 5. Set Hostname
 
-![Hostname](./images/Hostname.png)  
+![Hostname](./images/Installations/Hostname.png)  
 _Give your server a unique hostname (ex: `linux-hive`)._
 
 ### 6. Set Domain Name
 
-![Domain Name](./images/Domain_Name.png)  
+![Domain Name](./images/Installations/Domain_Name.png)  
 _Optional for home setups — you can leave it blank if not using domains._
 
 ### 7. Root Password
 
-![Root Password](./images/Root_Password.png)  
+![Root Password](./images/Installations/Root_Password.png)  
 _Set a strong root password. Don’t lose this!_
 
 ### 8. Full Name
 
-![Full Name](./images/Full_Name.png)  
+![Full Name](./images/Installations/Full_Name.png)  
 _Enter the full name of the primary user (for reference only)._
 
 ### 9. Username
 
-![Username](./images/Username.png)  
+![Username](./images/Installations/Username.png)  
 _Pick your login username (ex: `han`)._
 
 ### 10. User Password
 
-![Password](./images/Password.png)  
+![Password](./images/Installations/Password.png)  
 _Set a strong password for your user account._
 
 ### 11. Partition Disks
 
-![Partition Disks](./images/Partition_Disks.png)  
+![Partition Disks](./images/Installations/Partition_Disks.png)  
 _Select the method for partitioning. I used "Manual" for full control._
 
 ### 12. Partition Layout
 
-![Partition Layout](./images/Partition_Layout.png)  
+![Partition Layout](./images/Installations/Partition_Layout.png)  
 _Review and adjust your partitions (/, /home, /srv, swap, etc.)._
 
 ### 13. Confirm Partitions
 
-![Partition Disks 2](./images/Partition_Disks_2.png)  
+![Partition Disks 2](./images/Installations/Partition_Disks_2.png)  
 _Write changes to disk to finalize the partitioning._
 
 ### 14. Mirror Country
 
-![Mirror Country](./images/Mirror_Country.png)  
+![Mirror Country](./images/Installations/Mirror_Country.png)  
 _Select the country for your Debian package mirror._
 
 ### 15. Archive Mirror
 
-![Archive Mirror](./images/Archive_Mirror.png)  
+![Archive Mirror](./images/Installations/Archive_Mirror.png)  
 _Pick the Debian archive mirror for downloading updates/packages._
 
 ### 16. HTTP Proxy
 
-![HTTP Proxy](./images/HTTP_Proxy.png)  
+![HTTP Proxy](./images/Installations/HTTP_Proxy.png)  
 _Set this only if you’re behind a proxy. Otherwise, leave blank._
 
 ### 17. Survey
 
-![Survey](./images/Survey.png)  
+![Survey](./images/Installations/Survey.png)  
 _Debian asks if you want to participate in usage surveys. Choose yes/no._
 
 ### 18. Software Selection
 
-![Software Selection](./images/Software_Selection.png)  
+![Software Selection](./images/Installations/Software_Selection.png)  
 _Choose which software to install. For servers, select SSH + standard utilities. If you also want to host a Web, choose Web Server_
 
 ### 19. Installation Complete
 
-![Installation Complete](./images/Installation_Complete.png)  
+![Installation Complete](./images/Installations/Installation_Complete.png)  
 _Remove installation media, reboot, and enjoy your fresh Debian server!_
 
 ## Add User to Sudoers
