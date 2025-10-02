@@ -92,14 +92,14 @@ cd /opt/ssh-monitor
 
 ### Step 4: Create Main Monitoring Script
 
-**Note:** Fill in the double quotation with your **Bot Token** and **Chat ID**. I put **'# Fill'** on the lines.
+**Note:** Fill in the double quotation with your **Bot Token** and **Chat ID**.
 
 ```bash
 #!/bin/bash
 
 # Configuration
-BOT_TOKEN="" # Fill
-CHAT_ID="" # Fill
+BOT_TOKEN="" # Get this from @BotFather
+CHAT_ID="" # Get from /getUpdates
 HOSTNAME=$(hostname)
 SERVER_IP=$(hostname -I | awk '{print $1}')
 
@@ -387,8 +387,8 @@ cd /opt/ssh-monitor
 # Handles /start, /stats, /status, /help commands
 
 # Configuration
-BOT_TOKEN="" # Fill
-CHAT_ID="" # Fill
+BOT_TOKEN="" # Get from @BotFather
+CHAT_ID="" # Get from /getUpdates
 HOSTNAME=$(hostname)
 SERVER_IP=$(hostname -I | awk '{print $1}')
 OFFSET_FILE="/tmp/telegram_offset"
@@ -422,7 +422,7 @@ get_timestamp() {
 # Handle /start command
 handle_start() {
     local chat_id="$1"
-    local message="${EMOJI_ROBOT} *Welcome to WackySSH Security Bot!*
+    local message="${EMOJI_ROBOT} *Welcome to <YOUR_BOT_NAME>!*
 
 ${EMOJI_SHIELD} I'm your personal SSH security guard, monitoring \`${HOSTNAME}\` 24/7!
 
@@ -510,7 +510,7 @@ ${EMOJI_FIRE} *All systems operational!*"
 # Handle /help command
 handle_help() {
     local chat_id="$1"
-    local message="${EMOJI_ROBOT} *WackySSH Security Bot - Help*
+    local message="${EMOJI_ROBOT} *<YOUR_BOT_NAME> - Help*
 
 *Available Commands:*
 /start - Welcome message and bot info
@@ -566,7 +566,7 @@ check_messages() {
             		echo "$(date): Message from chat_id $chat_id (user: $(echo "$decoded" | jq -r '.message.from.first_name // "unknown"')): $message_text" >> /var/log/telegram-access.log
 
             	# Only respond to authorized users
-            	if [ "$chat_id" != "" ]; then # Fill
+            	if [ "$chat_id" != "" ]; then # Put your Chat ID on the double quotation
                 	echo "$(date): Unauthorized access attempt from $chat_id" >> /var/log/telegram-access.log
                 	continue
             	fi
@@ -574,21 +574,21 @@ check_messages() {
 
             # Handle commands
             if [ -n "$message_text" ] && [ -n "$chat_id" ]; then
-                if ["$chat_id" != ""]; then # Fill
+                if ["$chat_id" == ""]; then # Put your Chat ID on the double quotation
 			continue
 		fi
 
 		case "$message_text" in
-                    "/start"|"/start@WackySSH_Bot")
+                    "/start"|"/start@<YOUR_BOT_NAME>")
                         handle_start "$chat_id"
                         ;;
-                    "/stats"|"/stats@WackySSH_Bot")
+                    "/stats"|"/stats@<YOUR_BOT_NAME>")
                         handle_stats "$chat_id"
                         ;;
-                    "/status"|"/status@WackySSH_Bot")
+                    "/status"|"/status@<YOUR_BOT_NAME>")
                         handle_status "$chat_id"
                         ;;
-                    "/help"|"/help@WackySSH_Bot")
+                    "/help"|"/help@<YOUR_BOT_NAME>")
                         handle_help "$chat_id"
                         ;;
                 esac
