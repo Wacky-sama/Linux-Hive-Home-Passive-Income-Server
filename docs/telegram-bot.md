@@ -28,13 +28,13 @@ fail2ban integration with instant ban notifications
 Scheduled daily reports with security metrics
 
 ![Start](./images/Telegram/start.png)
-\_Start button
+_Start button_
 ![Stats](./images/Telegram/stats.png)
-\_Stats button
+_Stats button_
 ![Status](./images/Telegram/status.png)
-\_Status button
+_Status button_
 ![Help](./images/Telegram/help.png)
-\_Help button
+_Help button_
 
 ### Enterprise Features:
 
