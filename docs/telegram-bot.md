@@ -27,6 +27,11 @@ Automatic detection of failed logins, invalid users, and successful connections
 fail2ban integration with instant ban notifications
 Scheduled daily reports with security metrics
 
+![Start](./images/Telegram/start.png)
+![Stats](./images/Telegram/stats.png)
+![Status](./images/Telegram/status.png)
+![Help](./images/Telegram/help.png)
+
 ### Enterprise Features:
 
 Service redundancy with automatic restarts
