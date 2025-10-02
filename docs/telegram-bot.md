@@ -375,7 +375,7 @@ help - Show available commands
 
 ### Step 2: Create Command Handler Script
 
-**Note:** Fill in the double quotation with your **Bot Token** and **Chat ID**. I put **'# Fill'** on the lines.
+**Note:** Fill in the double quotation with your **Bot Token** and **Chat ID**.
 
 ```bash
 cd /opt/ssh-monitor
