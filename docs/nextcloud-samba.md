@@ -1,6 +1,4 @@
-# NextCloud and Samba Setup Guide
-
-## NextCloud Setup
+# NextCloud Setup Guide
 
 Step 1: Update your server
 
