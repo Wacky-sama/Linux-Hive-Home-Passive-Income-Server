@@ -5,7 +5,7 @@ Before you follow the steps, make sure have these:
 1. Domain(Buy on GoDaddy or which to the one you prefer)
 2. [Cloudflare Account](https://dash.cloudflare.com/login)
 
---
+---
 
 ## Step 1: Install **cloudflared**
 
