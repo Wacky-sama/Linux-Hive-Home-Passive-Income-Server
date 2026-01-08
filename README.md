@@ -8,11 +8,13 @@ This project isn’t just about making money—it’s a **hands-on playground fo
 ---
 
 ## AI Assistance
+
 This title and introduction were **AI-assisted and slightly modified** by the author.  
 
 ---
 
 ## Server Specs
+
 - **OS**: Debian 13 (Trixie)
 - **CPU**: Intel Core i7-4500U
 - **RAM**: 8 GB
@@ -21,16 +23,20 @@ This title and introduction were **AI-assisted and slightly modified** by the au
 ---
 
 ## Quick Start
+
 Check out the step-by-step guide:  
+
 - **[Setup Guide](docs/setup-guide.md)**
 - **[Running Honeygain with Docker](docs/docker-honeygain.md)**
 
 ---
 
 ## Related Repositories
+
 - **[SSH Key Authentication with configurations](https://github.com/Wacky-sama/SSH-Key-Authentication-Tutorial)**
 
 ---
 
 ## Motto
+
 > Efficiency, tech skills, and passive income—**all in one box**.
