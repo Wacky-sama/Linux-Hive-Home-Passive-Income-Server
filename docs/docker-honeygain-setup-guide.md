@@ -1,5 +1,7 @@
 # Running Honeygain with Docker and setting up the folder
 
+This guide shows how to run Honeygain inside a Docker container, manage its data directory, and keep it running across reboots. It's written for Debian/Ubuntu servers with Docker already installed.
+
 ## Step 1: Create folder
 
 ```bash
@@ -23,7 +25,7 @@ docker run honeygain/honeygain -tou-get
 docker run -d --name honeygain -v /srv/docker/honeygain:/data honeygain/honeygain -tou-accept -email "ACCOUNT_EMAIL" -pass "ACCOUNT_PASSWORD" -device "DEVICE_NAME"
 ```
 
-**Note:** Replace **ACCOUNT_EMAIL**, **ACCOUNT_PASSWORD**, and **DEVICE_NAME** with your own details.
+**NOTE:** Replace **ACCOUNT_EMAIL**, **ACCOUNT_PASSWORD**, and **DEVICE_NAME** with your own details.
 
 ## Checking Logs
 

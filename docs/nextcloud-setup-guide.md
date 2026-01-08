@@ -1,18 +1,26 @@
 # NextCloud Setup Guide
 
-Step 1: Update your server
+This guide walks you through installing and configuring Nextcloud on an Ubuntu/Debian server using Apache and MariaDB. It covers installing required packages, securing the database, setting up Apache, performing the web-based installation (or using the `occ` command), and optionally moving your data directory.
+
+---
+
+## Step 1: Update your server
 
 ```bash
 sudo apt update && sudo apt upgrade -y
 ```
 
-Step 2: Install Required Packages
+---
+
+## Step 2: Install Required Packages
 
 ```bash
 sudo apt install -y apache2 mariadb-server libapache2-mod-php php-gd php-json php-mysql php-curl php-mbstring php-intl php-imagick php-xml php-zip unzip wget
 ```
 
-Step 3: Secure MariaDB
+---
+
+### Step 3: Secure MariaDB
 
 Run the secure installation:
 
@@ -28,7 +36,9 @@ sudo mariadb-secure-installation
 - Remove test database and access to it? [Y/n] Y
 - Reload privilege tables now? [Y/n] Y
 
-Step 4: Create Database for Nextcloud
+---
+
+## Step 4: Create Database for Nextcloud
 
 Login to MariaDB:
 
@@ -46,7 +56,9 @@ FLUSH PRIVILEGES;
 EXIT;
 ```
 
-Step 5: Download Nextcloud
+---
+
+## Step 5: Download Nextcloud
 
 ```bash
 cd /var/www/
@@ -54,7 +66,9 @@ sudo wget https://download.nextcloud.com/server/releases/latest.zip
 sudo unzip latest.zip
 ```
 
-Step 6: Set permissions
+---
+
+## Step 6: Set permissions
 
 **Note:** This is still inside **/var/www/**
 
@@ -63,7 +77,9 @@ sudo chown -R www-data:www-data nextcloud
 sudo chmod -R 755 nextcloud
 ```
 
-Step 7: Configure Apache
+---
+
+## Step 7: Configure Apache
 
 ```bash
 sudo nano /etc/apache2/sites-available/nextcloud.conf
@@ -106,7 +122,9 @@ sudo a2enmod rewrite headers env dir mime
 sudo systemctl restart apache2
 ```
 
-Step 8: Access Nextcloud
+---
+
+## Step 8: Access Nextcloud
 
 Open a browser and go to:
 
