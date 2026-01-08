@@ -1,5 +1,9 @@
 # Telegram Bot Guide
 
+This guide explains how to build a Telegram-based SSH security monitoring system: creating a bot, obtaining the chat ID, configuring notification and monitoring scripts, and running them as systemd services so they operate 24/7.
+
+---
+
 ## What You'll Have When Done
 
 By the end of this guide, you'll have built a comprehensive SSH security monitoring system that rivals enterprise-grade setups:
@@ -55,6 +59,8 @@ This setup typically costs thousands when purchased as a managed security servic
 - Telegram account
 - SSH access to your server
 
+---
+
 ### Step 1: Create the Telegram Bot
 
 1. Message **@BotFather** on Telegram
@@ -63,6 +69,8 @@ This setup typically costs thousands when purchased as a managed security servic
 4. Give it a name like **"SSH Security Bot"**
 5. Give it a username like **"your_ssh_security_bot"**
 6. Copy the bot token **(looks like 123456789:ABCdefGhIjKlMnOpQrStUvWxYz)**
+
+---
 
 ### Step 2: Get your Chat ID and Test Bot
 
@@ -83,12 +91,16 @@ If this doesn't work, try this method I used:
 curl https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getUpdates
 ```
 
+---
+
 ### Step 3: Creating monitoring directory
 
 ```bash
 sudo mkdir -p /opt/ssh-monitor
 cd /opt/ssh-monitor
 ```
+
+---
 
 ### Step 4: Create Main Monitoring Script
 
@@ -103,7 +115,7 @@ CHAT_ID="" # Get from /getUpdates
 HOSTNAME=$(hostname)
 SERVER_IP=$(hostname -I | awk '{print $1}')
 
-# Emojis for style 💯
+# Emojis for style 
 EMOJI_BAN="🚫"
 EMOJI_SUCCESS="✅"
 EMOJI_FAIL="❌"
@@ -293,6 +305,8 @@ sudo ./ssh_telegram_monitor.sh test
 
 Check your phone - you should get a test message!
 
+---
+
 ### Step 5: Configure System Service
 
 Now create a systemd service to run it 24/7:
@@ -328,6 +342,8 @@ sudo systemctl enable ssh-monitor
 sudo systemctl start ssh-monitor
 ```
 
+---
+
 ### Step 6: Schedule Daily Stats
 
 Crontab = Cron Table - it's Linux's built-in scheduler! It runs commands automatically at specific times.
@@ -355,6 +371,8 @@ minute hour day month weekday command
   |     +--------------------------- Hour (0-23)
   +--------------------------------- Minute (0-59)
 ```
+
+---
 
 ### Step 7: Add Interactive Commands
 

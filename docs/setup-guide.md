@@ -1,5 +1,7 @@
 # Server Setup Guide
 
+This is a step-by-step guides to set up a Debian/Ubuntu server and useful services for a home lab. Use the sections below to follow an OS installation, configure core services, and deploy commonly used applications like Docker, Samba, and Nextcloud.
+
 ## Table of Contents
 
 1. [Installer Menu](#1-installer-menu)

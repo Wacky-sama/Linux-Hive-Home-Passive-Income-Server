@@ -1,6 +1,10 @@
 # Samba Setup Guide
 
-Step 1: Update your packages then install the samba:
+This guide shows how to install and configure Samba on a Debian/Ubuntu server to share files and folders on your local network. It covers package installation, opening necessary ports, creating shares, adding Samba users, and enabling the service.
+
+---
+
+## Step 1: Update your packages then install the samba:
 
 ```bash
 sudo apt update
@@ -8,7 +12,9 @@ sudo apt update
 sudo apt install samba samba-common-bin -y
 ```
 
-Step 2: Open these ports for Samba:
+---
+
+## Step 2: Open these ports for Samba:
 
 ```bash
 sudo ufw allow 139/tcp
@@ -19,7 +25,9 @@ sudo ufw allow 138/udp
 
 Quick breakdown: 445 is the main SMB port, 139 is for NetBIOS sessions, and 137/138 handle NetBIOS name services.
 
-Step 3: Edit the Samba config:
+---
+
+## Step 3: Edit the Samba config:
 
 ```bash
 sudo nano /etc/samba/smb.conf
@@ -57,3 +65,6 @@ Check if it's running:
 sudo systemctl status smbd
 ```
 
+---
+
+DONE!
