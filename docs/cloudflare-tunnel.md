@@ -70,4 +70,71 @@ cloudflared tunnel create tunnel_name
 
 This prints out a Tunnel ID — Cloudflare remembers that for you.
 
+Move the file to root:
 
+```bash
+sudo mkdir -p /root/.cloudflared
+
+sudo cp /home/<username>/.cloudflared/<TUNNEL-ID>.json /root/.cloudflared/
+
+sudo chown root:root /root/.cloudflared/<TUNNEL-ID>.json
+
+sudo chmod 600 /root/.cloudflared/<TUNNEL-ID>.json
+```
+
+---
+
+## Step 4: Create a directory
+
+```bash
+sudo mkdir -p /etc/cloudflared
+```
+
+---
+
+## Step 5: Create the config file
+
+```bash
+sudo nano /etc/cloudflared/config.yml
+```
+
+Paste this config:
+
+```bash
+tunnel: tunnel_name
+credentials-file: /root/.cloudflared/<TUNNEL-ID>.json
+
+ingress:
+  - hostname: yourdomain.com
+    service: http://localhost:80
+
+  - service: http_status:404
+```
+
+---
+
+## Step 6: Create the DNS route
+
+```bash
+cloudflared tunnel route dns nextcloud cloud.yourdomain.com
+```
+
+This auto-creates the CNAME in Cloudflare.
+
+---
+
+## Step 7: Run it as a service
+
+```bash
+sudo cloudflared service install
+sudo systemctl enable cloudflared
+sudo systemctl start cloudflared
+```
+
+Verify:
+
+```bash
+sudo systemctl status cloudflared
+```
+
+---
