@@ -46,6 +46,8 @@ Now check:
 cloudflared --version
 ```
 
+---
+
 ## Step 2: Log in to Cloudflare
 
 This links the tunnel to your account:
@@ -55,6 +57,8 @@ cloudflared tunnel login
 ```
 
 It’ll open a URL. Copy-paste it into your browser, choose your domain, approve.
+
+---
 
 ## Step 3: Create the tunnel
 
