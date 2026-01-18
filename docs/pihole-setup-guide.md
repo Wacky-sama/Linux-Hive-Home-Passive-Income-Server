@@ -19,6 +19,12 @@ cd ~/docker/pihole
 sudo nano docker-compose.yml
 ```
 
+Enable port 53 in UFW:
+
+```bash
+sudo ufw allow from 192.168.0.0/16 to any port 53
+```
+
 Check if port 53 & 80 already listening or not.
 
 ```bash
