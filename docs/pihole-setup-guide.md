@@ -100,7 +100,7 @@ http://<SERVER-IP>:8081/admin
 
 ---
 
-## Step 5: If you want to put in Cloudflare do this:
+## Step 5: If you want to put in Cloudflare Tunnel do this:
 
 Edit `/etc/cloudflare/config.yml`:
 
