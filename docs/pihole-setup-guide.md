@@ -121,9 +121,21 @@ ingress:
   - service: http_status:404
 ```
 
+Create the DNS route:
+
+```bash
+cloudflared tunnel route dns tunnel_name pihole.yourdomain.com
+```
+
+This auto-creates the CNAME in Cloudflare.
+
 Then:
 
 ```bash
 sudo systemctl restart cloudflared
 sudo systemctl status cloudflared
 ```
+
+---
+
+You are done! You can access your Pi-hole outside your LAN.
