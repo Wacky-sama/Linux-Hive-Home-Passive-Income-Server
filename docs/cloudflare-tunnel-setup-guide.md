@@ -139,4 +139,33 @@ sudo systemctl status cloudflared
 
 ---
 
+If you want to rename your tunnel name, do this:
+
+List the tunnel name first
+
+```bash
+cloudflared tunnel list
+```
+
+Then:
+
+```bash
+cloudflared tunnel rename old_tunnel_name new_tunnel_name
+```
+
+Update config:
+
+```bash
+tunnel: new_tunnel_name
+credentials-file: /root/.cloudflared/<TUNNEL-ID>.json
+```
+
+Restart service:
+
+```bash
+sudo systemctl restart cloudflared
+```
+
+---
+
 Visit my [Portfolio Setup Guide](/docs/portfolio-setup-guide.md).
