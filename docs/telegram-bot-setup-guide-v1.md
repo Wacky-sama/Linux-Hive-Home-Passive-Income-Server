@@ -113,6 +113,11 @@ sudo nano ssh_telegram_monitor.sh
 ```bash
 #!/bin/bash
 
+BOT_TOKEN="" # Get from @BotFather
+CHAT_ID="" # Get from /getUpdates
+HOSTNAME=$(hostname)
+SERVER_IP=$(hostname -I | awk '{print $1}')
+
 # Function to send Telegram message
 send_telegram() {
     local message="$1"
