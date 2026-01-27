@@ -167,12 +167,13 @@ case "$1" in
         ;;
     status)
         output=$(sudo /usr/bin/apt list --upgradable 2>&1)
-        # Remove the warning line for cleaner check
         clean_output=$(echo "$output" | grep -v "WARNING: apt does not have a stable CLI interface")
-    
-        # If output is just "Listing..." or empty, system is up to date
-        if echo "$clean_output" | grep -qE "^Listing\.\.\.$|^$"; then
-            echo "System is up to date. No packages need upgrading."
+        
+        # Check if there's anything after "Listing..."
+        packages=$(echo "$clean_output" | grep -v "^Listing\.\.\.$")
+        
+        if [ -z "$packages" ]; then
+            echo "✓ System is up to date. No packages need upgrading."
         else
             echo "$clean_output"
         fi
