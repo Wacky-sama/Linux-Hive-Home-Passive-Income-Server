@@ -300,7 +300,6 @@ Check your phone - you should get a test message!
 ### Step 5: Configure System Service
 
 Now create a systemd service to run it 24/7:
-
 ```bash
 sudo nano /etc/systemd/system/ssh-monitor.service
 ```
@@ -325,7 +324,6 @@ WantedBy=multi-user.target
 ```
 
 Start the monitoring:
-
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl enable ssh-monitor
@@ -366,7 +364,7 @@ minute hour day month weekday command
 
 ### Step 7: Add Interactive Commands
 
-### Step 1: Configure Bot Commands
+#### Step 1: Configure Bot Commands
 
 1. Type **/mybots** to **BotFather**
 2. Click on your bot
@@ -381,18 +379,21 @@ status - Check server status
 help - Show available commands
 ```
 
-### Step 2: Create Command Handler Script
+#### Step 2: Create Command Handler Script
 
 **Note:** Fill in the double quotation with your **Bot Token** and **Chat ID**.
 
+Change directory:
 ```bash
 cd /opt/ssh-monitor
 ```
 
+Create the script:
 ```bash
 sudo nano bot_command_handler.sh
 ```
 
+Paste the script:
 ```bash
 #!/bin/bash
 
@@ -629,10 +630,9 @@ case "${1}" in
 esac
 ```
 
-Save the scipt
+Save the script.
 
 Make it executable:
-
 ```bash
 sudo chmod +x bot_command_handler.sh
 ```
