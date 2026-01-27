@@ -116,6 +116,7 @@ sudo nano-f /etc/sudoers.d/tg-maint
 Paste:
 ```bash
 tg-maint ALL=(root) NOPASSWD: /usr/bin/apt
+tg-maint ALL=(root) NOPASSWD: /sbin/reboot
 tg-maint ALL=(root) NOPASSWD: /opt/tg-maint/tg-maint-bot.sh
 ```
 
@@ -397,7 +398,7 @@ check_messages() {
             /reboot|/reboot@YourMaintenanceBot) handle_reboot ;;
 	    /reboot_yes|/reboot_yes@YourMaintenanceBot)
    		 send_message "$AUTHORIZED_CHAT_ID" "Rebooting now..."
-   		 "$TG_MAINT" reboot
+   		 sudo "$TG_MAINT" reboot
    		 ;;
 	    /reboot_no|/reboot_no@YourMaintenanceBot)
    		 send_message "$AUTHORIZED_CHAT_ID" "Reboot cancelled."
