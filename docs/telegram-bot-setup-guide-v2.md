@@ -359,8 +359,8 @@ handle_reboot() {
     send_message "$AUTHORIZED_CHAT_ID" \
 "*Confirm reboot*
 Reply with:
-/reboot_yes
-/reboot_no" Markdown
+/rebootyes
+/rebootno" Markdown
 }
 
 check_messages() {
@@ -396,11 +396,11 @@ check_messages() {
             /upgrade|/upgrade@YourMaintenanceBot) handle_upgrade ;;
             /status|/status@YourMaintenanceBot) handle_status ;;
             /reboot|/reboot@YourMaintenanceBot) handle_reboot ;;
-	    /reboot_yes|/reboot_yes@YourMaintenanceBot)
+	    /rebootyes|/rebootyes@YourMaintenanceBot)
    		 send_message "$AUTHORIZED_CHAT_ID" "Rebooting now..."
    		 sudo "$TG_MAINT" reboot
    		 ;;
-	    /reboot_no|/reboot_no@YourMaintenanceBot)
+	    /rebootno|/rebootno@YourMaintenanceBot)
    		 send_message "$AUTHORIZED_CHAT_ID" "Reboot cancelled."
   		 ;;
 
