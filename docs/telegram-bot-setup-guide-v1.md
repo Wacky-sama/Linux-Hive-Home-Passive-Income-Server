@@ -1,4 +1,4 @@
-# Telegram Bot Guide
+# Telegram Bot Guide V1
 
 This guide explains how to build a Telegram-based SSH security monitoring system: creating a bot, obtaining the chat ID, configuring notification and monitoring scripts, and running them as systemd services so they operate 24/7.
 
@@ -66,8 +66,8 @@ This setup typically costs thousands when purchased as a managed security servic
 1. Message **@BotFather** on Telegram
 2. click **/start**
 3. Send **/newbot**
-4. Give it a name like **"SSH Security Bot"**
-5. Give it a username like **"your_ssh_security_bot"**
+4. Give it a name like **"Maintenance Bot"**
+5. Give it a username like **"your_maintenance_bot"**
 6. Copy the bot token **(looks like 123456789:ABCdefGhIjKlMnOpQrStUvWxYz)**
 
 ---
@@ -104,7 +104,7 @@ cd /opt/ssh-monitor
 
 ### Step 4: Create Main Monitoring Script
 
-**Note:** Fill in the double quotation with your **Bot Token** and **Chat ID**.
+**Note:** Fill in the double quotation with your `Bot Token` and `Chat ID`.
 
 ```bash
 sudo nano ssh_telegram_monitor.sh
