@@ -45,6 +45,10 @@ The Wacky Maintenance Bot is intentionally simple and boring — because boring 
 - `/update` – Refresh package lists
 - `/upgrade` – Upgrade installed packages
 
+![Docs_1](./images/Telegram/V2/Maint_1.png)
+
+![Docs_2](./images/Telegram/V2/Maint_2.png)
+
 ---
 
 ## Security Model

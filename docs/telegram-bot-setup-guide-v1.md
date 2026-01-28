@@ -31,14 +31,9 @@ Automatic detection of failed logins, invalid users, and successful connections
 fail2ban integration with instant ban notifications
 Scheduled daily reports with security metrics
 
-![Start](./images/Telegram/)
-_Start button_
-![Stats](./images/Telegram/)
-_Stats button_
-![Status](./images/Telegram/)
-_Status button_
-![Help](./images/Telegram/)
-_Help button_
+![Docs_1](./images/Telegram/V1/SSH_1.png)
+
+![Docs_2](./images/Telegram/V1/SSH_2.png)
 
 ### Enterprise Features:
 
