@@ -2,6 +2,8 @@
 
 This guide shows how to run Honeygain inside a Docker container, manage its data directory, and keep it running across reboots. It's written for Debian/Ubuntu servers with Docker already installed.
 
+---
+
 ## Step 1: Create folder
 
 ```bash
