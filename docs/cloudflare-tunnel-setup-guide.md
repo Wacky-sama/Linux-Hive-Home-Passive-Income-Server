@@ -62,7 +62,7 @@ It’ll open a URL. Copy-paste it into your browser, choose your domain, approve
 
 ## Step 3: Create the tunnel
 
-**NOTE**: Change **tunnel_name** to your liking.
+**NOTE**: Change `tunnel_name` to your liking.
 
 ```bash
 cloudflared tunnel create tunnel_name
@@ -116,7 +116,7 @@ ingress:
 ## Step 6: Create the DNS route
 
 ```bash
-cloudflared tunnel route dns nextcloud cloud.yourdomain.com
+cloudflared tunnel route dns tunnel_name yourdomain.com
 ```
 
 This auto-creates the CNAME in Cloudflare.
