@@ -10,26 +10,26 @@ By the end of this guide, you'll have built a comprehensive SSH security monitor
 
 ### Bulletproof SSH Configuration:
 
-Custom port (hiding from automated scans)
-Key-only authentication (no password attacks possible)
-User access restrictions (only your account allowed)
-Connection limits and timeouts
-fail2ban automatically banning attackers
+- Custom port (hiding from automated scans)
+- Key-only authentication (no password attacks possible)
+- User access restrictions (only your account allowed)
+- Connection limits and timeouts
+- fail2ban automatically banning attackers
 
 ### Personal Security Bot:
 
-Real-time Telegram notifications for all SSH activity
-Instant alerts when IPs get banned
-Daily security statistics delivered to your phone
-Interactive commands to check server status anytime
-Professional bot with custom commands and descriptions
+- Real-time Telegram notifications for all SSH activity
+- Instant alerts when IPs get banned
+- Daily security statistics delivered to your phone
+- Interactive commands to check server status anytime
+- Professional bot with custom commands and descriptions
 
 ### 24/7 Automated Monitoring:
 
-Continuous log monitoring via systemd services
-Automatic detection of failed logins, invalid users, and successful connections
-fail2ban integration with instant ban notifications
-Scheduled daily reports with security metrics
+- Continuous log monitoring via systemd services
+- Automatic detection of failed logins, invalid users, and successful connections
+- fail2ban integration with instant ban notifications
+- Scheduled daily reports with security metrics
 
 ![Docs_1](./images/Telegram/V1/SSH_1.png)
 
@@ -37,10 +37,10 @@ Scheduled daily reports with security metrics
 
 ### Enterprise Features:
 
-Service redundancy with automatic restarts
-Proper logging and error handling
-JSON parsing for reliable message processing
-Offset tracking to prevent duplicate notifications
+- Service redundancy with automatic restarts
+- Proper logging and error handling
+- JSON parsing for reliable message processing
+- Offset tracking to prevent duplicate notifications
 
 ### End Result:
 
@@ -329,31 +329,59 @@ sudo systemctl start ssh-monitor
 
 ### Step 6: Schedule Daily Stats
 
-Crontab = Cron Table - it's Linux's built-in scheduler! It runs commands automatically at specific times.
-Set up daily stats (crontab):
+Instead of cron, we use `systemd timers` — they're more reliable, survive missed runs (e.g. server was off), and integrate cleanly with `journalctl` for logging.
+
+Create the service unit(the thing that actually runs):
 
 ```bash
-sudo crontab -e
+sudo nano /etc/systemd/system/ssh-stats.service
 ```
-
-Add this line:
 
 ```bash
-0 9 * * * /opt/ssh-monitor/ssh_telegram_monitor.sh stats
+[Unit]
+Description=SSH Telegram Daily Stats
+After=network.target
+
+[Service]
+Type=oneshot
+User=root
+ExecStart=/opt/ssh-monitor/ssh_telegram_monitor.sh stats
 ```
 
-It is like this:
+Create the timer unit (the scheduler):
 
 ```bash
-minute hour day month weekday command
-  |     |    |    |      |       |
-  |     |    |    |      |       +-- Command to run
-  |     |    |    |      +---------- Day of week (0-7, Sunday=0 or 7)
-  |     |    |    +----------------- Month (1-12)
-  |     |    +---------------------- Day of month (1-31)
-  |     +--------------------------- Hour (0-23)
-  +--------------------------------- Minute (0-59)
+sudo nano /etc/systemd/system/ssh-stats.timer
 ```
+
+```bash
+[Unit]
+Description=Run SSH Stats daily at 7AM
+
+[Timer]
+OnCalendar=*-*-* 07:00:00 Asia/Manila
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+```
+
+Note: `Persistent=true` means if the server was off at 7AM, it will send the stats report on next boot instead of silently skipping it.
+
+Enable and start the timer:
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable --now ssh-stats.timer
+```
+
+Verify it's scheduled:
+
+```bash
+systemctl list-timers --all | grep ssh-stats
+```
+
+You should see `ssh-stats.timer` with the next trigger time listed.
 
 ---
 
