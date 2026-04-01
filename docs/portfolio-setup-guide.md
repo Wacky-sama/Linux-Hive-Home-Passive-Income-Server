@@ -96,7 +96,7 @@ Enable the site:
 ```bash
 sudo a2ensite portfolio.conf
 
-sudo systemctl restart apache
+sudo systemctl restart apache2
 ```
 
 ---
