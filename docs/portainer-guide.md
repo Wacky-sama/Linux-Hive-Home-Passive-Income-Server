@@ -69,6 +69,7 @@ Setup Firewall
 
 ```bash
 sudo ufw allow from 192.168.xx.xx/24 to any port 9443
+sudo ufw deny 9443
 ```
 
 ---
