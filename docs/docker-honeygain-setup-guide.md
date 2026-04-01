@@ -17,7 +17,7 @@ sudo chown $USER:$USER /srv/docker/honeygain
 docker pull honeygain/honeygain
 ```
 
-## Running Honeygain
+## Step 3: Running Honeygain
 
 ```bash
 # Get the current copy of Terms of Use(ToU):
