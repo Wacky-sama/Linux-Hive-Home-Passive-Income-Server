@@ -70,12 +70,18 @@ cloudflared tunnel create tunnel_name
 
 This prints out a Tunnel ID — Cloudflare remembers that for you.
 
-Move the file to root:
+Move or Copy the file to root:
 
 ```bash
 sudo mkdir -p /root/.cloudflared
 
+# Copy
 sudo cp /home/<username>/.cloudflared/<TUNNEL-ID>.json /root/.cloudflared/
+
+OR
+
+# Move
+sudo mv /home/<username>/.cloudflared/<TUNNEL-ID>.json /root/.cloudflared/
 
 sudo chown root:root /root/.cloudflared/<TUNNEL-ID>.json
 
