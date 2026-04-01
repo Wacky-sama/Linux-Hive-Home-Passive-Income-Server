@@ -114,7 +114,7 @@ sudo adduser tg-maint
 
 Edit sudoers:
 ```bash
-sudo nano-f /etc/sudoers.d/tg-maint
+sudo nano -f /etc/sudoers.d/tg-maint
 ```
 
 Paste:
