@@ -181,4 +181,4 @@ sudo <command>
 
 ## Setting up Honeygain
 
-[Docker Honeygain](docker-honeygain.md)
+[Docker Honeygain](docker-honeygain-setup-guide.md)
