@@ -108,10 +108,10 @@ http://<SERVER-IP>:8081/admin
 
 ## Step 5: If you want to put in Cloudflare Tunnel do this:
 
-Edit `/etc/cloudflare/config.yml`:
+Edit `/etc/cloudflared/config.yml`:
 
 ```bash
-sudo nano /etc/cloudflare/config.yml
+sudo nano /etc/cloudflared/config.yml
 ```
 
 Paste this and change it accordingly:
