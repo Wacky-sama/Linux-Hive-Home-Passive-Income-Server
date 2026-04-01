@@ -592,7 +592,7 @@ check_messages() {
             		echo "$(date): Message from chat_id $chat_id (user: $(echo "$decoded" | jq -r '.message.from.first_name // "unknown"')): $message_text" >> /var/log/telegram-access.log
             
             	# Only respond to authorized users
-            	if [ "$chat_id" != "5079632395" ]; then
+            	if [ "$chat_id" != "YOUR_CHAT_ID" ]; then
                 	echo "$(date): Unauthorized access attempt from $chat_id" >> /var/log/telegram-access.log
                 	continue
             	fi
@@ -600,21 +600,21 @@ check_messages() {
 
             # Handle commands
             if [ -n "$message_text" ] && [ -n "$chat_id" ]; then
-                if ["$chat_id" == "5079632395"]; then
+                if ["$chat_id" == "YOUR_CHAT_ID"]; then
 			continue
 		fi
 
 		case "$message_text" in
-                    "/start"|"/start@WackySSH_Bot")
+                    "/start"|"/start@YourBotUsername")
                         handle_start "$chat_id"
                         ;;
-                    "/stats"|"/stats@WackySSH_Bot")
+                    "/stats"|"/stats@YourBotUsername")
                         handle_stats "$chat_id"
                         ;;
-                    "/status"|"/status@WackySSH_Bot")
+                    "/status"|"/status@YourBotUsername")
                         handle_status "$chat_id"
                         ;;
-                    "/help"|"/help@WackySSH_Bot")
+                    "/help"|"/help@YourBotUsername")
                         handle_help "$chat_id"
                         ;;
                 esac
