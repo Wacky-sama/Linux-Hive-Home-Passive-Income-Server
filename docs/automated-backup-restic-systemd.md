@@ -1,8 +1,8 @@
 # Automated Backup with Restic + Systemd
 
-**Server:** Wacky's Debian Hive
+**Server:** Wacky's Debian Hive (`debian`)
 **Stack:** Restic, systemd timers, MariaDB dumps, Telegram notifications
-**Repo:** `/srv/backups/restic-repo`
+**Repo ID:** `f39af59cd1` at `/srv/backups/restic-repo`
 
 ---
 
@@ -27,7 +27,7 @@ This setup uses **Restic** as the backup engine with **systemd timers** (not cro
 ## Prerequisites
 
 ```bash
-sudo apt update && sudo apt install restic -y
+sudo apt install restic -y
 ```
 
 Verify install:
@@ -209,7 +209,7 @@ systemctl list-timers --all | grep backup
 
 ```bash
     backup)
-        /usr/local/bin/server-backup.sh
+        sudo /usr/local/bin/server-backup.sh
         ;;
     *)
         echo "Usage: $0 {update|upgrade|status|reboot|backup}"
@@ -239,6 +239,43 @@ handle_backup() {
 
 ```
 /backup - Trigger a manual backup
+```
+
+### Update sudoers for `tg-maint`:
+
+The bot runs as `tg-maint` user, so it needs explicit permission to call `server-backup.sh`:
+
+```bash
+sudo visudo -f /etc/sudoers.d/tg-maint
+```
+
+Add this line:
+
+```
+tg-maint ALL=(root) NOPASSWD: /usr/local/bin/server-backup.sh
+```
+
+Full `/etc/sudoers.d/tg-maint` should look like:
+
+```bash
+tg-maint ALL=(root) NOPASSWD: /usr/bin/apt
+tg-maint ALL=(root) NOPASSWD: /sbin/reboot
+tg-maint ALL=(root) NOPASSWD: /opt/tg-maint/tg-maint-bot.sh
+tg-maint ALL=(root) NOPASSWD: /usr/local/bin/server-backup.sh
+```
+
+### Restart the bot service:
+
+**Always restart tg-maint after editing any bot script** — the service holds the old version in memory until restarted:
+
+```bash
+sudo systemctl restart tg-maint.service
+```
+
+Verify it's back up:
+
+```bash
+systemctl status tg-maint.service
 ```
 
 ### Register with BotFather:
