@@ -153,7 +153,8 @@ sudo vi /etc/systemd/system/server-backup.service
 ```ini
 [Unit]
 Description=Wacky Hive - Restic Backup
-After=network.target
+After=network-online.target
+Wants=network-online.target
 
 [Service]
 Type=oneshot
@@ -162,6 +163,9 @@ User=root
 StandardOutput=journal
 StandardError=journal
 ```
+
+- `network.target` = "network interfaces are up" (basically just the config loaded)
+- `network-online.target` = "we actually have a working network connection"
 
 ---
 
@@ -176,7 +180,7 @@ sudo vi /etc/systemd/system/server-backup.timer
 Description=Wacky Hive - Daily Backup Timer
 
 [Timer]
-OnCalendar=*-*-* 03:00:00
+OnCalendar=*-*-* 00:30:00 Asia/Manila
 AccuracySec=1min
 Persistent=true
 
@@ -184,7 +188,7 @@ Persistent=true
 WantedBy=timers.target
 ```
 
-> `Persistent=true` — if the server was off at 3AM, it runs the backup on next boot instead of skipping it silently. This is why systemd timers beat cron for servers.
+> `Persistent=true` — if the server was off at 12:30AM, it runs the backup on next boot instead of skipping it silently. This is why systemd timers beat cron for servers.
 
 ---
 
