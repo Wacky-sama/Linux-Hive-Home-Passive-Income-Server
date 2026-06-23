@@ -27,7 +27,7 @@ This title and introduction were **AI-assisted and slightly modified** by the au
 Check out the step-by-step guide:  
 
 - **[Setup Guide](docs/setup-guide.md)**
-- **[Running Honeygain with Docker](docs/docker-honeygain.md)**
+- **[Running Honeygain with Docker](docs/docker-honeygain-setup-guide.md)**
 
 ---
 
