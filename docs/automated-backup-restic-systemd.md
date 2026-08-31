@@ -88,7 +88,10 @@ tg_send "<b>Backup started</b> on <code>${HOSTNAME}</code> — ${DATE}"
 MYSQL_DUMP_DIR="/srv/backups/mysql-dumps"
 mkdir -p "$MYSQL_DUMP_DIR"
 
-if mysqldump -u root --all-databases \
+if mysqldump -u root 
+    --all-databases \
+    --protocol=socket \
+    --skip-ssl \
     --single-transaction \
     --routines \
     --triggers \
