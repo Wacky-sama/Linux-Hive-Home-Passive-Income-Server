@@ -40,3 +40,9 @@ docker logs -tf honeygain
 ```bash
 docker update --restart unless-stopped honeygain
 ```
+
+## Restart Docker Honeygain
+
+```bash
+docker restart honeygain
+```

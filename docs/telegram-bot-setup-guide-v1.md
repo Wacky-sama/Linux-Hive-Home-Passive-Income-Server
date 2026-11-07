@@ -6,41 +6,41 @@ This guide explains how to build a Telegram-based SSH security monitoring system
 
 ## What You'll Have When Done
 
-By the end of this guide, you'll have built a comprehensive SSH security monitoring system that rivals enterprise-grade setups:
+By following this guide, you'll set up a Telegram-based SSH security monitoring system that helps protect your server and keeps you updated about its security activities.
 
-### Bulletproof SSH Configuration:
+### Improved SSH Security:
 
-- Custom port (hiding from automated scans)
-- Key-only authentication (no password attacks possible)
-- User access restrictions (only your account allowed)
-- Connection limits and timeouts
-- fail2ban automatically banning attackers
+- Custom SSH port to reduce exposure to automated scans.
+- SSH-key-based authentication instead of password login.
+- Restricted SSH access to authorized users only.
+- Configured connection limtis and timeouts settings.
+- fail2ban to automatically block suspicious IP addresses.
 
 ### Personal Security Bot:
 
-- Real-time Telegram notifications for all SSH activity
-- Instant alerts when IPs get banned
-- Daily security statistics delivered to your phone
-- Interactive commands to check server status anytime
-- Professional bot with custom commands and descriptions
+- Real-time notifications about SSH login activities.
+- Alerts whenever fail2ban blocks or unblocks an IP address.
+- Daily security reports sent directly to your Telegram account.
+- Interactive commands to check your server's status and security statistics.
+- Customized bot commands and descriptions for easier use.
 
 ### 24/7 Automated Monitoring:
 
-- Continuous log monitoring via systemd services
-- Automatic detection of failed logins, invalid users, and successful connections
-- fail2ban integration with instant ban notifications
-- Scheduled daily reports with security metrics
+- Continuous log monitoring via systemd services.
+- Automatic detection of failed logins, invalid users, and successful connections.
+- fail2ban integration with instant ban notifications.
+- Scheduled daily reports with security metrics.
 
 ![Docs_1](./images/Telegram/V1/SSH_1.png)
 
 ![Docs_2](./images/Telegram/V1/SSH_2.png)
 
-### Enterprise Features:
+### Additional Features:
 
-- Service redundancy with automatic restarts
-- Proper logging and error handling
-- JSON parsing for reliable message processing
-- Offset tracking to prevent duplicate notifications
+- Automatic service restarts if a monitoring process stops unexpectedly.
+- Logging and error handling for easier troubleshooting.
+- JSON parsing for processing Telegram messages.
+- Update tracking to avoid processing the same Telegram messages multiple times.
 
 ### End Result:
 
