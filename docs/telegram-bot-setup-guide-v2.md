@@ -6,25 +6,25 @@ This guide explains how to build and run a Telegram-based Linux server maintenan
 
 ## What You'll Have When Done
 
-By the end of this guide, you'll have a practical, no-nonsense maintenance system that feels like a personal SRE living inside your server:
+By following this guide, you'll create a Telegram-based Linux server maintenance bot that allows you to manage basic maintenance tasks directly from Telegram. It will help you update packages, check system status, and perform maintenance operations without needing to log in through SSH every time.
 
 ---
 
 ## Reliable Package Maintenance
 
-- On-demand apt update and apt upgrade via Telegram commands
-- Clear, human-readable execution feedback
-- Protection against overlapping runs (no double upgrades at 3 AM)
-- Optional reboot awareness after kernel updates
+- Run `apt update` and `apt upgrade` directly through Telegram commands.
+- Receive clear messages showing the results of maintenance tasks.
+- Prevent multiple maintenance operations from running at the same time.
+- Get information about pending reboots after kernel updates.
 
 ---
 
 ## Personal Maintenance Bot
 
-- Secure Telegram bot restricted to your chat ID
-- Clean command set for maintenance tasks
-- Descriptive bot profile (About, Description, and commands)
-- Fast responses without flooding your chat
+- A Telegram bot that only responds to your authorized Chat ID.
+- Simple commands for managing server maintenance tasks.
+- Customized bot profile with descriptions and available commands.
+- Quick responses without sending unnecessary messages.
 
 ---
 
@@ -53,11 +53,11 @@ The Wacky Maintenance Bot is intentionally simple and boring — because boring 
 
 ## Security Model
 
-This bot is powerful, so security is non-negotiable:
-- Chat ID allowlist (only you can talk to it)
-- No inbound network ports exposed
-- Sudo rules scoped to specific commands only
-- Logs everything it runs
+Since the bot can execute system maintenance commands, access must be properly restricted.
+- Chat ID allowlist to ensure only authorized users can control the bot.
+- No need to expose additional inbound network ports.
+- Limited sudo permissions for specific maintenance commands.
+- Logging to keep track of executed commands and activities.
 
 ---
 
